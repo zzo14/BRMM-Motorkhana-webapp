@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}Drivers' run results{% endblock %}
+{% block header %}{% endblock %}
+{% block content %}
+<div class="container mt-4 alert alert-light">
+    <h2 class="mb-4">Select a Driver</h2>
+    <form method="get" action="{{ url_for('driversrun') }}">
+        <div class="mb-3">
+            <select name="driver_id" class="form-select" onchange="this.form.submit()">
+                <option disabled selected>Select a driver...</option>
+                {% for dr in all_drivers %}
+                    <option value="{{ dr[0] }}" {% if selected_driver_id == dr[0] %}selected{% endif %}>{{dr[0]}} - {{dr[1]}} {% if dr[2] and dr[2] <= 16 %}(J){% endif %}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </form>
+
+    {% if selected_driver %}
+    <h5 class="mt-3">Driver ID: {{ selected_driver[0][0] }}</h5>
+    <h5>Name: {{ selected_driver[0][1] }} {% if selected_driver[0][10] and selected_driver[0][10] <= 16 %}(J){% endif %}</h5>
+    <h6>Car Model: {{ selected_driver[0][2] }} | Drive Class: {{ selected_driver[0][3] }}</h5>
+    <h3 class="mt-5">Driver Details:</h3>
+    <table class="table table-bordered table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th class="ml-auto text-center">Course</th>
+                <th class="ml-auto text-center">Run Number</th>
+                <th class="ml-auto text-center">Seconds</th>
+                <th class="ml-auto text-center">Cones</th>
+                <th class="ml-auto text-center">WD</th>
+                <th class="ml-auto text-center">Total Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for dr in selected_driver %}
+                <tr>
+                    <td class="ml-auto">
+                        <div class="row">
+                            <div class="col-4"></div>  <!-- This is essentially a spacer column -->
+                            <div class="col">{{ dr[4] }}</div>
+                        </div>
+                    </td>
+                    <td class="ml-auto text-center">{{ dr[5] }}</td>
+                    <td class="ml-auto text-center">{{ dr[6] if dr[6] is not none else '-' }}</td>
+                    <td class="ml-auto text-center">{{ dr[7] if dr[7] is not none else 0 }}</td>
+                    <td class="ml-auto text-center">{{ dr[8] }}</td>
+                    <td class="ml-auto text-center">{{ dr[9] if dr[9] is not none else '-' }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+</div>
+
+{% endblock %}

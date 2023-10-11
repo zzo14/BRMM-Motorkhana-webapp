@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>{% block title %}Admin{% endblock %}</title>
+        <!-- Bootstrap CSS link -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    </head>
+
+    <body>
+      <img src="/static/background.jpg" alt="Background Image" class="position-fixed w-100 h-100" style="z-index: -1; object-fit: cover;">
+      <nav class="navbar navbar-expand-lg navbar-light bg-success">
+        <a class="navbar-brand text-white font-weight-bold ms-3" href="{{ url_for('admin') }}">Admin Dashboard</a>
+        <ul class="navbar-nav me-auto"> 
+            <li class="nav-item">
+                <a class="nav-link text-white {{ 'font-weight-bold display-4 text-decoration-underline' if request.path == url_for('junior_driver') else '' }}" href="{{ url_for('junior_driver') }}">Junior Drivers</a> 
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white {{ 'font-weight-bold display-4 text-decoration-underline' if request.path == url_for('edit_run') else '' }}" href="{{ url_for('edit_run') }}">Edit Runs</a> 
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white {{ 'font-weight-bold display-4 text-decoration-underline' if request.path == url_for('add_driver') else '' }}" href="{{ url_for('add_driver') }}">Add Driver</a> 
+            </li>
+        </ul>
+        <ul class="navbar-nav ms-auto me-3">
+            <li class="nav-item">
+              <a class="text-white btn btn-primary" href="{{ url_for('home') }}">Home</a>
+            </li>
+        </ul>
+    </nav>
+          <section class="content">
+            <header>
+              {% block header %}{% endblock %}
+            </header>
+            {% block content %}
+            <div class="vh-60 d-flex justify-content-start align-items-center" style="margin-top: 3%;">
+                <div class="container alert alert-light py-5 text-center" style="min-height: 400px;">
+                    <h1 class="mb-5">Welcome to Administrator Interface</h1>
+                    <form class="d-flex justify-content-center mb-4" method="POST" action="/admin">
+                        <input class="form-control form-control-lg me-2" style="width: 50%;" name="query" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success btn-lg" type="submit">Search</button>
+                    </form>
+                    <p class="font-size-sm">
+                        <strong>Search Instructions:</strong> Type the driver's first name, last name, or the full name. Supports partial matches.
+                    </p>
+                    {% if query %}
+                        {% if result %}
+                        <div class="collapse show" id="collapseExample">
+                            <div class="card card-body">
+                                <h5>Search result for "{{query}}":</h5>
+                                <table class="table table-bordered table-hover">
+                                    <thead class="table-dark">
+                                        <tr>
+                                            <th class="ml-auto text-center">ID</th>
+                                            <th class="ml-auto text-center">Name</th>
+                                            <th class="ml-auto text-center">Date of Birth</th>
+                                            <th class="ml-auto text-center">Age</th>
+                                            <th class="ml-auto text-center">Action</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for dr in result %}
+                                            <tr>
+                                                <td class="ml-auto text-center">{{ dr[0] }}</td>
+                                                <td class="ml-auto text-center"><a href="{{ url_for('driversrun', driver_id=dr[0]) }}">{{ dr[1] }} {{ dr[2] }}</a></td>
+                                                <td class="ml-auto text-center">{{ dr[3] if dr[3] is not none else '-' }}</td>
+                                                <td class="ml-auto text-center">{{ dr[4] if dr[4] is not none else '-' }}</td>
+                                                <td class="ml-auto text-center">
+                                                <a href="{{ url_for('edit_run', driver=dr[0] ~  '-' ~ dr[1] ~ ' ' ~ dr[2]) }}" class="text-black btn btn-outline-warning btn-sm">Edit</a>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        {% else %}
+                        <div class="collapse show" id="collapseExample">
+                            <div class="card card-body">
+                                <h5>There is no driver's name contains "{{query}}", please search again.</h5>
+                            </div>
+                        </div>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+            {% endblock %}
+          </section>
+
+        <!-- Bootstrap's JavaScript bundle including Popper -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    </body>
+
+</html>

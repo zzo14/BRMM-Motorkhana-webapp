@@ -1,0 +1,149 @@
+{% extends "admin.html" %}
+{% block title %}Edit Run{% endblock %}
+{% block content %}
+<div class="container mt-4">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <div class="alert alert-light">
+        {% if driver_id %}
+            <h2 class="mb-4">Drivers Run List for:</h2>
+            <h5 class="mt-3">Driver ID: {{ driver_id }}</h5>
+            <h5>Name: {{driver_name}}</h5> 
+            <h6>Click on the entry you wish to modify to update the run data. (or <a href="{{ url_for('edit_run')}}"> click here for all drivers</a>)</h6>
+        {% else %}
+            <h2 class="mb-4">Drivers Run List</h2>
+            <h6>Click on the entry you wish to modify to update the run data.</h6>
+        {% endif %}
+        <table class="table table-bordered table-hover mt-3">
+            <thead class="table-dark">
+                <tr>
+                    <th class="text-center">Driver ID</th>
+                    <th class="text-center">Name</th>
+                    <th class="text-center">Course</th>
+                    <th class="text-center">Run Number</th>
+                    <th class="text-center">Seconds</th>
+                    <th class="text-center">Cones</th>
+                    <th class="text-center">WD</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for driver in drivers_list %}
+                    {% if driver_id %}
+                        {% if driver[0]|string == driver_id %}
+                            <tr data-bs-toggle="modal" data-bs-target="#myModal{{ loop.index }}">
+                                <td class="text-center">{{ driver[0] }}</td>
+                                <td class="text-center">{{ driver[1] }}</td>
+                                <td class="text-center">{{ driver[2] }}</td>
+                                <td class="text-center">{{ driver[3] }}</td>
+                                <td class="text-center">{{ driver[4] }}</td>
+                                <td class="text-center">{{ driver[5] if driver[5] is not none else 0 }}</td>
+                                <td class="text-center">{{ driver[6] }}</td>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="myModal{{ loop.index }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered modal-xl">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Edit Run data for: {{ driver[0] }} - {{ driver[1] }} | Course {{ driver[2] }} Run {{ driver[3] }}</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <form method="POST" action="/admin/edit_run">
+                                                <div class="modal-body">
+                                                    <!-- Hidden fields to send driver id and run num to backend -->
+                                                    <input type="hidden" name="driver_id" value="{{driver[0]}}">
+                                                    <input type="hidden" name="driver_name" value="{{driver[1]}}">
+                                                    <input type="hidden" name="course_id" value="{{driver[2]}}">
+                                                    <input type="hidden" name="run_num" value="{{driver[3]}}">
+                                                    <!-- Editable fields -->
+                                                    <div class="mb-3">
+                                                        <label for="times-{{ driver[0] }}-{{ driver[2] }}-{{ driver[3] }}" class="form-label">Times</label>
+                                                        <input type="number" min="0" step="0.01" class="form-control" id="times-{{ driver[0] }}-{{ driver[2] }}-{{ driver[3] }}" name="times" value="{{ driver[4] or '0'}}" required>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="cones-{{ driver[0] }}-{{ driver[2] }}-{{ driver[3] }}" class="form-label">Cones</label>
+                                                        <input type="number" min="0" max="25" class="form-control" id="cones-{{ driver[0] }}-{{ driver[2] }}-{{ driver[3] }}" name="cones" value="{{ driver[5] or '0' }}" required>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="wd-{{ driver[0] }}-{{ driver[2] }}-{{ driver[3] }}" class="form-label">WD</label>
+                                                        <select class="form-control" id="wd-{{ driver[0] }}-{{ driver[2] }}-{{ driver[3] }}" name="wd">
+                                                            <option value="0" {% if driver[6] == 0 %}selected{% endif %}>0</option>
+                                                            <option value="1" {% if driver[6] == 1 %}selected{% endif %}>1</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </tr>
+                        {% endif %}
+                    {% else %}
+                        <tr data-bs-toggle="modal" data-bs-target="#myModal{{ loop.index }}">
+                            <td class="text-center">{{ driver[0] }}</td>
+                            <td class="text-center">{{ driver[1] }}</td>
+                            <td class="text-center">{{ driver[2] }}</td>
+                            <td class="text-center">{{ driver[3] }}</td>
+                            <td class="text-center">{{ driver[4] }}</td>
+                            <td class="text-center">{{ driver[5] if driver[5] is not none else 0 }}</td>
+                            <td class="text-center">{{ driver[6] }}</td>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="myModal{{ loop.index }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-xl">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Edit Run data for: {{ driver[0] }} - {{ driver[1] }} | Course {{ driver[2] }} Run {{ driver[3] }}</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <form method="POST" action="/admin/edit_run">
+                                            <div class="modal-body">
+                                                <!-- Hidden fields to send driver id and run num to backend -->
+                                                <input type="hidden" name="driver_id" value="{{driver[0]}}">
+                                                <input type="hidden" name="driver_name" value="{{driver[1]}}">
+                                                <input type="hidden" name="course_id" value="{{driver[2]}}">
+                                                <input type="hidden" name="run_num" value="{{driver[3]}}">
+                                                <!-- Editable fields -->
+                                                <div class="mb-3">
+                                                    <label for="times-{{ driver[0] }}-{{ driver[2] }}-{{ driver[3] }}" class="form-label">Times</label>
+                                                    <input type="number" min="0" step="0.01" class="form-control" id="times-{{ driver[0] }}-{{ driver[2] }}-{{ driver[3] }}" name="times" value="{{ driver[4] or '0'}}" required>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="cones-{{ driver[0] }}-{{ driver[2] }}-{{ driver[3] }}" class="form-label">Cones</label>
+                                                    <input type="number" min="0" max="25" class="form-control" id="cones-{{ driver[0] }}-{{ driver[2] }}-{{ driver[3] }}" name="cones" value="{{ driver[5] or '0' }}" required>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="wd-{{ driver[0] }}-{{ driver[2] }}-{{ driver[3] }}" class="form-label">WD</label>
+                                                    <select class="form-control" id="wd-{{ driver[0] }}-{{ driver[2] }}-{{ driver[3] }}" name="wd">
+                                                        <option value="0" {% if driver[6] == 0 %}selected{% endif %}>0</option>
+                                                        <option value="1" {% if driver[6] == 1 %}selected{% endif %}>1</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary">Save changes</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

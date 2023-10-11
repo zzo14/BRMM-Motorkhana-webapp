@@ -1,0 +1,31 @@
+{% extends "admin.html" %}
+{% block title %}Junior Drivers{% endblock %}
+{% block content %}
+<div class="container mt-4 alert alert-light">
+    <h2 class="mb-4">Junior Drivers List</h2>
+
+    <!-- code to display list of courses -->
+    <table class="table table-bordered table-hover rounded">
+        <thead class="table-dark">
+            <tr>
+                <th class="text-center">Driver Id</th>
+                <th class="text-center">Driver Name</th>
+                <th class="text-center">Date of Birth</th>
+                <th class="text-center">age</th>
+                <th class="text-center">Caregiver Name</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for jd in junior_drivers %}
+            <tr>
+                <td class="text-center align-middle">{{ jd[0] }}</td> 
+                <td class="text-center align-middle">{{ jd[1] }}</td> 
+                <td class="text-center align-middle">{{ jd[2] }}</td> 
+                <td class="text-center align-middle">{{ jd[3] }}</td>
+                <td class="text-center align-middle">{{ jd[4] if jd[4] is not none else '-' }}</td> 
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

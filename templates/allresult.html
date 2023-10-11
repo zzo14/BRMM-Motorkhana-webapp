@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Overall Results{% endblock %}
+{% block header %}{% endblock %}
+{% block content %}
+
+<div class="container mt-4 alert alert-light">
+    <h2 class="mb-4">Overall Results</h2>
+    <table class="table table-bordered table-hover mt-3">
+        <thead class="table-dark">
+            <tr>
+                <th class="text-center">Driver ID</th>
+                <th class="text-center">Name</th>
+                <th class="text-center">Car Model</th>
+                {% for course in ('A','B','C','D','E','F') %}
+                    <th class="text-center">Course {{course}} (s)</th>
+                {% endfor %}
+                <th class="text-center">Overall Result (s)</th>
+                <th class="text-center">Award</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for driver in allresult %}
+                <tr>
+                    <td class="text-center">{{ driver.id  }}</td>
+                    <td class="text-left"><a href="{{ url_for('driversrun', driver_id=driver.id) }}">{{ driver.name }}</a></td>
+                    <td class="text-center">{{ driver.car_model }}</td>
+                    {% for course in ('A','B','C','D','E','F') %}
+                        <td class="text-center">{{ driver.courses[course] }}</td>
+                    {% endfor %}
+                    <td class="text-center">{{ driver.overall_result }}</td>
+                    <td class="text-center">{{ driver.award if driver.award else '-'}}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

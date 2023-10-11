@@ -1,23 +1,48 @@
 {% extends "base.html" %}
+{% block title %}List of Courses{% endblock %}
+{% block header %}{% endblock %}
 {% block content %}
+<div class="container mt-4 alert alert-light" role="alert">
+    <h2 class="mb-4">Course List</h2>
+    <h3 class="mb-3">Current competition courses</h3>
 
-<h2>Course List</h2>
-<h3>current competition courses</h3>
-
-<!-- code to display list of courses-->
-<table>
-    <tr>
-        <th>Course</th>
-        <th>Name</th>
-        <th>Map diagram</th>
-    </tr>
-    {% for course in course_list %}
-        <tr>
-            {% for field in course %}
-                <td>{{field}}</td>
-            {% endfor %}
-        </tr>
-    {% endfor %}
-</table>
+    <!-- code to display list of courses -->
+    <table class="table table-bordered table-hover rounded">
+        <thead class="table-dark">
+            <tr>
+                <th class="text-center">Course</th>
+                <th class="text-center">Name</th>
+                <th class="text-center">Map diagram (Click on the image to view larger)</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for course in course_list %}
+            <tr>
+                <td class="text-center align-middle">{{ course[0] }}</td> 
+                <td class="text-center align-middle">{{ course[1] }}</td> 
+                <td class="text-center align-middle">
+                    <!-- Trigger the modal with a button -->
+                    <img src="/static/{{course[2]}}" alt="Map diagram for {{ course[1] }}" data-bs-toggle="modal" data-bs-target="#myModal{{ loop.index }}" class="img-thumbnail w-25">
+                    
+                    <!-- Modal -->
+                    <div class="modal fade" id="myModal{{ loop.index }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-xl my-auto">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Map diagram for {{ course[1] }}</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <img src="/static/{{course[2]}}" alt="Map diagram for {{ course[1] }}" class="img-fluid">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td> 
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
 
 {% endblock %}
