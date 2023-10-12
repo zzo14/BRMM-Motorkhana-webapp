@@ -9,7 +9,7 @@
 
     <body>
       <img src="/static/background.jpg" alt="Background Image" class="position-fixed w-100 h-100" style="z-index: -1; object-fit: cover;">
-      <nav class="navbar navbar-expand-lg navbar-light bg-success">
+      <nav class="navbar navbar-expand-lg navbar-light bg-success fixed-top">
         <a class="navbar-brand text-white font-weight-bold ms-3" href="{{ url_for('admin') }}">Admin Dashboard</a>
         <ul class="navbar-nav me-auto"> 
             <li class="nav-item">
@@ -28,12 +28,13 @@
             </li>
         </ul>
     </nav>
-          <section class="content">
+    <div class="pt-5">
+        <section class="content">
             <header>
               {% block header %}{% endblock %}
             </header>
             {% block content %}
-            <div class="vh-60 d-flex justify-content-start align-items-center" style="margin-top: 3%;">
+            <div class="vh-60 d-flex justify-content-start align-items-center" style="margin-top: 2%;">
                 <div class="container alert alert-light py-5 text-center" style="min-height: 400px;">
                     <h1 class="mb-5">Welcome to Administrator Interface</h1>
                     <form class="d-flex justify-content-center mb-4" method="POST" action="/admin">
@@ -87,7 +88,7 @@
             </div>
             {% endblock %}
           </section>
-
+    </div>
         <!-- Bootstrap's JavaScript bundle including Popper -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     </body>

@@ -9,7 +9,7 @@
 
     <body>
       <img src="/static/background.jpg" alt="Background Image" class="position-fixed w-100 h-100" style="z-index: -1; object-fit: cover;">
-      <nav class="navbar navbar-expand-lg navbar-light bg-success">
+      <nav class="navbar navbar-expand-lg navbar-light bg-success fixed-top">
         <a class="navbar-brand text-white font-weight-bold ms-3" href="{{ url_for('home') }}">BRMM</a>
         <ul class="navbar-nav me-auto"> 
             <li class="nav-item">
@@ -34,74 +34,74 @@
           </li>
         </ul>
     </nav>
-    
-          <section class="content">
-            <header>
-              {% block header %}
-              {% endblock %}
-            </header>
-              {% for message in get_flashed_messages() %}
-                  <div class="flash">{{ message }}</div>
-              {% endfor %}
-              {% block content %}
-              <div class="container mt-4 bg-light rounded">
-                <!-- Heading section -->
-                <div class="text-center py-3">
-                    <h1 class="display-3 text-success font-weight-bold">Bankside Rakaia Motorkhana Mavens <br>Car Club!</h1>
-                    <p class="lead font-weight-bold">Where the thrill of Motorkhana comes alive!</p>
-                </div>
+    <div class="pt-5">
+      <section class="content">
+        <header>
+          {% block header %}
+          {% endblock %}
+        </header>
+          {% for message in get_flashed_messages() %}
+              <div class="flash">{{ message }}</div>
+          {% endfor %}
+          {% block content %}
+          <div class="container mt-4 bg-light rounded">
+            <!-- Heading section -->
+            <div class="text-center py-3">
+                <h1 class="display-3 text-success font-weight-bold">Bankside Rakaia Motorkhana Mavens <br>Car Club!</h1>
+                <p class="lead font-weight-bold">Where the thrill of Motorkhana comes alive!</p>
+            </div>
 
-                <!-- What is a Motorkhana with Images -->
-                <div class="row my-4">
-                  <!-- Empty space for centering -->
-                  <div class="col-lg-1"></div>
-                    <!-- Images Column -->
-                    <div class="col-lg-4">
-                        <!-- Image 1 -->
-                        <div class="mb-4 text-start">
-                            <img src="/static/motorkhana3.jpg" class="img-fluid" alt="Image showcasing Motorkhana" style="max-width: 100%; height: auto;">
-                        </div>
-                        <!-- Image 2 -->
-                        <div class="text-end">
-                            <img src="/static/motorkhana1.jpg" class="img-fluid" alt="Second image showcasing a driver" style="max-width: 100%; height: auto;">
-                        </div>
+            <!-- What is a Motorkhana with Images -->
+            <div class="row my-4">
+              <!-- Empty space for centering -->
+              <div class="col-lg-1"></div>
+                <!-- Images Column -->
+                <div class="col-lg-4">
+                    <!-- Image 1 -->
+                    <div class="mb-4 text-start">
+                        <img src="/static/motorkhana3.jpg" class="img-fluid" alt="Image showcasing Motorkhana" style="max-width: 100%; height: auto;">
                     </div>
-                    
-                    <!-- What is a Motorkhana text content -->
-                    <div class="col-lg-6">
-                        <h3 class="display-6 font-weight-bold text-success">What is a Motorkhana?</h3>
-                        <p class="lead">A timed driver skill competition - there are usually 6 tests of up to 200m in length defined by cones and starting and finishing garages. Maps are provided showing the direction of travel and the course to be followed around each cone. The objective is to complete the course in the correct direction without incurring penalties, such as 5 seconds for hitting a cone or leaving the sealed surface, in the fastest time.</p>
-                        <p class="lead">Run in a safe environment on our grassed areas, these events are a challenge even for the most experienced. To drive a course around up to 25 cones in an area no larger than 200m x200m (often less) requires skill. Sliding the car, using the handbrake to turn, and controlling acceleration is essential to be neat and fast, while avoiding those pesky 5-second time penalty cones. A standard event runs 6x courses with each driver getting 2 attempts at each. Some courses even include reversing!</p>
+                    <!-- Image 2 -->
+                    <div class="text-end">
+                        <img src="/static/motorkhana1.jpg" class="img-fluid" alt="Second image showcasing a driver" style="max-width: 100%; height: auto;">
                     </div>
-                    <div class="col-lg-1"></div>
                 </div>
-
-                <!-- Event Introduction with Image 3 -->
-                <div class="row my-5">
-                  <!-- Empty space for centering -->
-                  <div class="col-lg-1"></div>
-                    <!-- Event Text Content -->
-                    <div class="col-lg-6">
-                        <h2 class="display-6 text-center font-weight-bold text-success">Monthly Competitive Motorkhana Event</h2>
-                        <p class="lead font-weight-bold text-center">Join this unique event, showcase your driving skills, avoid the cones, and race to the finish in record time!</p>
-                    </div>
-                    <!-- Image 3 -->
-                    <div class="col-lg-4 text-center">
-                        <img src="/static/motorkhana2.jpg" class="img-fluid" alt="Third image showcasing the event" style="max-width: 100%; height: auto;">
-                    </div>
-                    <!-- Empty space for centering -->
-                  <div class="col-lg-1"></div>
+                
+                <!-- What is a Motorkhana text content -->
+                <div class="col-lg-6">
+                    <h3 class="display-6 font-weight-bold text-success">What is a Motorkhana?</h3>
+                    <p class="lead">A timed driver skill competition - there are usually 6 tests of up to 200m in length defined by cones and starting and finishing garages. Maps are provided showing the direction of travel and the course to be followed around each cone. The objective is to complete the course in the correct direction without incurring penalties, such as 5 seconds for hitting a cone or leaving the sealed surface, in the fastest time.</p>
+                    <p class="lead">Run in a safe environment on our grassed areas, these events are a challenge even for the most experienced. To drive a course around up to 25 cones in an area no larger than 200m x200m (often less) requires skill. Sliding the car, using the handbrake to turn, and controlling acceleration is essential to be neat and fast, while avoiding those pesky 5-second time penalty cones. A standard event runs 6x courses with each driver getting 2 attempts at each. Some courses even include reversing!</p>
                 </div>
+                <div class="col-lg-1"></div>
+            </div>
 
-                <!-- About BRMM Car Club -->
-                <div class="my-4">
-                    <h2 class="display-4 text-success text-center font-weight-bold" style="font-size: smaller;">About Us</h2>
-                    <p class="lead" style="font-size: smaller;">The BRMM Car Club is a prestigious community dedicated to offering the best Motorkhana experience. Whether you're a novice or an experienced racer, we welcome you to join us in experiencing this adrenaline-packed sport.</p>
+            <!-- Event Introduction with Image 3 -->
+            <div class="row my-5">
+              <!-- Empty space for centering -->
+              <div class="col-lg-1"></div>
+                <!-- Event Text Content -->
+                <div class="col-lg-6">
+                    <h2 class="display-6 text-center font-weight-bold text-success">Monthly Competitive Motorkhana Event</h2>
+                    <p class="lead font-weight-bold text-center">Join this unique event, showcase your driving skills, avoid the cones, and race to the finish in record time!</p>
                 </div>
-              </div>
-              {% endblock %}
-          </section>
+                <!-- Image 3 -->
+                <div class="col-lg-4 text-center">
+                    <img src="/static/motorkhana2.jpg" class="img-fluid" alt="Third image showcasing the event" style="max-width: 100%; height: auto;">
+                </div>
+                <!-- Empty space for centering -->
+              <div class="col-lg-1"></div>
+            </div>
 
+            <!-- About BRMM Car Club -->
+            <div class="my-4">
+                <h2 class="display-4 text-success text-center font-weight-bold" style="font-size: smaller;">About Us</h2>
+                <p class="lead" style="font-size: smaller;">The BRMM Car Club is a prestigious community dedicated to offering the best Motorkhana experience. Whether you're a novice or an experienced racer, we welcome you to join us in experiencing this adrenaline-packed sport.</p>
+            </div>
+          </div>
+          {% endblock %}
+      </section>
+    </div>
         <!-- Bootstrap's JavaScript bundle including Popper -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     </body>
