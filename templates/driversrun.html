@@ -6,7 +6,7 @@
     <h2 class="mb-4">Select a Driver</h2>
     <form method="get" action="{{ url_for('driversrun') }}">
         <div class="mb-3">
-            <select name="driver_id" class="form-select" onchange="this.form.submit()">
+            <select name="driver_id" class="form-select" onchange="this.form.submit()" value="">
                 <option disabled selected>Select a driver...</option>
                 {% for dr in all_drivers %}
                     <option value="{{ dr[0] }}" {% if selected_driver_id == dr[0] %}selected{% endif %}>{{dr[0]}} - {{dr[1]}} {% if dr[2] and dr[2] <= 16 %}(J){% endif %}</option>

@@ -72,6 +72,7 @@ def listdrivers():
                           ORDER BY d1.surname, d1.first_name;""")
     driverList = connection.fetchall()
     print(driverList)
+    # formated_driverList = date_format_nz(driverList)
     return render_template("driverlist.html", driver_list = driverList)    
 
 @app.route("/listcourses")
@@ -144,6 +145,20 @@ def mod_allresult(allresult):
     print(sorted_drivers)
     return sorted_drivers
 
+# def date_format_nz(driverList):
+#     formated_driverList = []
+#     for driver in driverList:
+#         #type(datetime.date)
+#         if driver[3]:
+#             formated_date = driver[3].strftime("%d-%m-%Y")
+#             formated_driver = driver[:3] + (formated_date,) + driver[4:]
+#             formated_driverList.append(formated_driver)
+#         else:
+#             formated_driverList.append(driver)
+#     print(formated_driverList)
+#     return formated_driverList
+
+
 
 # Adminisrator Interface
 @app.route("/admin", methods=['GET', 'POST'])
@@ -155,7 +170,7 @@ def admin():
         query = request.form.get("query")
         print(query)
         connection.execute("""SELECT * FROM driver WHERE first_name LIKE %s or surname LIKE %s;""", 
-                           ("%" + query + "%" if query else None,"%" + query + "%" if query else None))
+                           (f"%{query}%" if query else None,f"%{query}%" if query else None,))
         result = connection.fetchall()
         print(result)
         session['result'] = result
