@@ -21,10 +21,10 @@
         </thead>
         <tbody>
             {% for driver in driver_list %}
-                <tr {% if driver[4] and driver[4] <= 16 %}class="table-warning" {% endif %}>
+                <tr {% if driver[4] and driver[4] <= 25 %}class="table-warning" {% endif %}>
                     <td class="text-center">{{ driver[0] }}</td>
                     <!-- Using driver's name as a clickable link to the driver's run details -->
-                    <td class="text-center"><a href="{{ url_for('driversrun', driver_id=driver[0]) }}">{{ driver[1] }} {{ driver[2] }} {% if driver[4] and driver[4] <= 16 %}(J){% endif %}</a></td>
+                    <td class="text-left"><a href="{{ url_for('driversrun', driver_id=driver[0]) }}">{{ driver[1] }} {{ driver[2] }} {% if driver[4] and driver[4] <= 25 %}(J){% endif %}</a></td>
                     <td class="text-center">{{ driver[3] if driver[3] is not none else "-" }}</td>
                     <td class="text-center">{{ driver[4] if driver[4] is not none else "-" }}</td>
                     <td class="text-center">{{ driver[5] if driver[5] is not none else "-" }}</td>

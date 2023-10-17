@@ -114,7 +114,7 @@ def mod_allresult(allresult):
         if driver_id not in drivers:
             drivers[driver_id] = {
                 "id": driver_id,
-                "name": driver_name + (' (J)' if age and age <= 16 else ''),
+                "name": driver_name + (' (J)' if age and age <= 25 else ''),
                 "car_model": car_model,
                 "courses": {},
                 "total_time": 0

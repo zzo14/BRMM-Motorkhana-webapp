@@ -9,7 +9,7 @@
             <select name="driver_id" class="form-select" onchange="this.form.submit()" value="">
                 <option disabled selected>Select a driver...</option>
                 {% for dr in all_drivers %}
-                    <option value="{{ dr[0] }}" {% if selected_driver_id == dr[0] %}selected{% endif %}>{{dr[0]}} - {{dr[1]}} {% if dr[2] and dr[2] <= 16 %}(J){% endif %}</option>
+                    <option value="{{ dr[0] }}" {% if selected_driver_id == dr[0] %}selected{% endif %}>{{dr[0]}} - {{dr[1]}} {% if dr[2] and dr[2] <= 25 %}(J){% endif %}</option>
                 {% endfor %}
             </select>
         </div>
@@ -17,7 +17,7 @@
 
     {% if selected_driver %}
     <h5 class="mt-3">Driver ID: {{ selected_driver[0][0] }}</h5>
-    <h5>Name: {{ selected_driver[0][1] }} {% if selected_driver[0][10] and selected_driver[0][10] <= 16 %}(J){% endif %}</h5>
+    <h5>Name: {{ selected_driver[0][1] }} {% if selected_driver[0][10] and selected_driver[0][10] <= 25 %}(J){% endif %}</h5>
     <h6>Car Model: {{ selected_driver[0][2] }} | Drive Class: {{ selected_driver[0][3] }}</h5>
     <h3 class="mt-5">Driver Details:</h3>
     <table class="table table-bordered table-hover">
