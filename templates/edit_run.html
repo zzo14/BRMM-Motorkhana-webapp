@@ -40,7 +40,7 @@
                         {% if driver[0]|string == driver_id %}
                             <tr data-bs-toggle="modal" data-bs-target="#myModal{{ loop.index }}">
                                 <td class="text-center">{{ driver[0] }}</td>
-                                <td class="text-center">{{ driver[1] }}</td>
+                                <td class="text-center">{{ driver[1] }} {% if driver[7] and driver[7] <= 25 %}(J){% endif %}</td>
                                 <td class="text-center">{{ driver[2] }}</td>
                                 <td class="text-center">{{ driver[3] }}</td>
                                 <td class="text-center">{{ driver[4] }}</td>
@@ -52,7 +52,7 @@
                                     <div class="modal-dialog modal-dialog-centered modal-xl">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title">Edit Run data for: {{ driver[0] }} - {{ driver[1] }} | Course {{ driver[2] }} Run {{ driver[3] }}</h5>
+                                                <h5 class="modal-title">Edit Run data for: {{ driver[0] }} - {{ driver[1] }} {% if driver[7] and driver[7] <= 25 %}(J){% endif %} | Course {{ driver[2] }} Run {{ driver[3] }}</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <form method="POST" action="/admin/edit_run">
@@ -92,7 +92,7 @@
                     {% else %}
                         <tr data-bs-toggle="modal" data-bs-target="#myModal{{ loop.index }}">
                             <td class="text-center">{{ driver[0] }}</td>
-                            <td class="text-center">{{ driver[1] }}</td>
+                            <td class="text-center">{{ driver[1] }} {% if driver[7] and driver[7] <= 25 %}(J){% endif %}</td>
                             <td class="text-center">{{ driver[2] }}</td>
                             <td class="text-center">{{ driver[3] }}</td>
                             <td class="text-center">{{ driver[4] }}</td>
@@ -104,7 +104,7 @@
                                 <div class="modal-dialog modal-dialog-centered modal-xl">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title">Edit Run data for: {{ driver[0] }} - {{ driver[1] }} | Course {{ driver[2] }} Run {{ driver[3] }}</h5>
+                                            <h5 class="modal-title">Edit Run data for: {{ driver[0] }} - {{ driver[1] }} {% if driver[7] and driver[7] <= 25 %}(J){% endif %} | Course {{ driver[2] }} Run {{ driver[3] }}</h5>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <form method="POST" action="/admin/edit_run">

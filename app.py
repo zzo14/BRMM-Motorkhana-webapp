@@ -6,7 +6,7 @@ from flask import url_for
 from flask import flash
 from flask import session
 import re
-from datetime import datetime
+from datetime import datetime, timedelta
 import mysql.connector
 from mysql.connector import FieldType
 import connect
@@ -173,13 +173,23 @@ def admin():
                            (f"%{query}%" if query else None,f"%{query}%" if query else None,))
         result = connection.fetchall()
         print(result)
-        session['result'] = result
+
+        modified_result = []
+        for item in result:
+            # Convert each tuple to a list, modify the date, then convert it back to a tuple
+            item_list = list(item)
+            if item_list[3]:
+                item_list[3] = item[3].strftime('%d/%m/%Y')
+            modified_result.append(tuple(item_list))
+
+        session['result'] = modified_result
         session['query'] = query
         return redirect(url_for('admin'))
     result = session.get('result')
     query = session.get('query')  # Retrieve the query from the session
     session['result'] = None
     session['query'] = None  # Clear the query from the session after retrieving it
+    print(result)
     return render_template("admin.html", query=query,result=result)
 
 @app.route("/admin/junior_driver", methods=['GET', 'POST'])
@@ -217,7 +227,7 @@ def edit_run():
         return redirect(url_for('edit_run'))
 
     connection.execute("""SELECT d.driver_id, CONCAT(d.first_name, ' ' , d.surname) as driver_name, r.crs_id, r.run_num, 
-                          r.seconds, r.cones, r.wd
+                          r.seconds, r.cones, r.wd, d.age
                           FROM driver d 
                           JOIN (SELECT * FROM run r JOIN course c ON r.crs_id = c.course_id) r 
                           ON d.driver_id = r.dr_id ORDER BY d.driver_id, r.crs_id, run_num;""")
@@ -228,8 +238,40 @@ def edit_run():
         driver_id, driver_name = driver.split('-', 1)
     return render_template("edit_run.html", drivers_list=drivers_list, driver_id=driver_id, driver_name=driver_name)
 
-@app.route("/admin/add_driver", methods=['GET', 'POST'])
-def add_driver():
+@app.route("/admin/add_adult", methods=['GET', 'POST'])
+def add_adult():
+    connection = getCursor()
+    # Get all driver names for the dropdown
+    connection.execute("SELECT * FROM car;")
+    all_cars = connection.fetchall()
+    selected_car = request.args.get('car')
+
+    if request.method == "POST":
+        first_name = request.form.get("first_name")
+        last_name = request.form.get("last_name")
+        car = request.form.get("car")
+        print(first_name, last_name, car)
+
+        connection.execute("""INSERT INTO driver (first_name, surname, date_of_birth, age, caregiver, car)
+                              VALUES(%s, %s, %s, %s, %s, %s)""", 
+                              (first_name, last_name, None, None, None, car))
+        new_id = connection.lastrowid
+        affected_rows = connection.rowcount
+        if new_id and affected_rows > 0:
+            for course in ['A', 'B', 'C', 'D', 'E', 'F']:
+                for run_num in [1, 2]:
+                    connection.execute("""INSERT INTO run (dr_id, crs_id, run_num, seconds, cones, wd) 
+                                          VALUES (%s, %s, %s, NULL, NULL, 0)""", (new_id, course, run_num))
+            flash("Successfully add a new driver, driver id is {}!".format(new_id), "success")
+            return redirect(url_for('add_driver'))
+        else:
+            flash("No rows were added. Please check your enter and add again.", "danger")
+            return redirect(url_for('add_adult'))
+    return render_template("add_adult.html", all_cars=all_cars, selected_car=selected_car)
+
+
+@app.route("/admin/add_junior", methods=['GET', 'POST'])
+def add_junior():
     connection = getCursor()
     # Get all driver names for the dropdown
     connection.execute("SELECT * FROM car;")
@@ -243,27 +285,15 @@ def add_driver():
     if request.method == "POST":
         first_name = request.form.get("first_name")
         last_name = request.form.get("last_name")
-        check_junior = request.form.get("check_junior")
         date_birth = request.form.get("date_birth")
         caregiver = request.form.get("caregiver")
         car = request.form.get("car")
-        print(first_name, last_name, check_junior, date_birth, caregiver, car)
+        print(first_name, last_name, date_birth, caregiver, car)
 
         age = calculate_age(date_birth)
-        if check_junior == "0":
-            if age is None:
-                flash("As driver is under 25 years old, the date of birth must be entered!", "danger")
-                return redirect(url_for('add_driver'))
-            elif age < 12 or age == 0:
-                flash("The driver must be over 12 years old!", "danger")
-                return redirect(url_for('add_driver'))
-            elif 12 <= age <= 16 and caregiver is None:
-                flash("As driver is under 16 years old, a caregiver is required!", "danger")
-                return redirect(url_for('add_driver'))
-        else:
-            if age and age < 25:
-                flash("As driver is under 25 years old, please make sure select a right option!", "danger")
-                return redirect(url_for('add_driver'))
+        if 12 <= age <= 16 and caregiver is None:
+            flash("As driver is under 16 years old, a caregiver is required!", "danger")
+            return redirect(url_for('add_junior'))
 
         connection.execute("""INSERT INTO driver (first_name, surname, date_of_birth, age, caregiver, car)
                               VALUES(%s, %s, %s, %s, %s, %s)""", 
@@ -276,11 +306,27 @@ def add_driver():
                     connection.execute("""INSERT INTO run (dr_id, crs_id, run_num, seconds, cones, wd) 
                                           VALUES (%s, %s, %s, NULL, NULL, 0)""", (new_id, course, run_num))
             flash("Successfully add a new driver, driver id is {}!".format(new_id), "success")
+            return redirect(url_for('add_driver'))
         else:
             flash("No rows were added. Please check your enter and add again.", "danger")
-        return redirect(url_for('add_driver'))
-    return render_template("add_driver.html", all_cars=all_cars, selected_car=selected_car, 
-                           all_drivers=all_drivers,selected_caregiver=selected_caregiver)
+            return redirect(url_for('add_junior'))
+    
+    max_time = (datetime.today() - timedelta(days=12*365)).strftime('%Y-%m-%d')
+    return render_template("add_junior.html", all_cars=all_cars, selected_car=selected_car, 
+                           all_drivers=all_drivers,selected_caregiver=selected_caregiver, max_time=max_time)
+
+@app.route("/admin/add_driver", methods=['GET', 'POST'])
+def add_driver():
+    
+    if request.method == "POST":
+        age_choose = request.form.get("age_rank")
+        if age_choose == "adult":
+            # return render_template("add_adult.html", age_choose = age_choose)
+            return redirect(url_for('add_adult'))
+        elif age_choose == "junior":
+            # return render_template("add_junior.html", age_choose = age_choose)
+            return redirect(url_for('add_junior'))
+    return render_template("add_driver.html")
 
 def calculate_age(date_birth):
     if date_birth:

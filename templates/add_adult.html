@@ -1,0 +1,52 @@
+{% extends "admin.html" %}
+{% block title %}Add Driver{% endblock %}
+{% block content %}
+
+<div class="container mt-4">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+    
+    <div class="alert alert-light">
+        <h2 class="mb-4">Add a New Adult Driver</h2> 
+        <form method="POST" action="/admin/add_adult">
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="first_name" class="form-label">First Name</label>
+                    <input type="text" class="form-control mb-4" id="first_name" name="first_name" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="last_name" class="form-label">Last Name</label>
+                    <input type="text" class="form-control mb-4" id="last_name" name="last_name" required>
+                </div>
+            </div>
+            
+            <div class="row mt-3 align-items-end">
+                <div class="col-md-6">
+                    <label for="car" class="form-label mb-2">Please choose your racing car:</label>
+                    <select class="form-control mb-2" id="car" name="car" required>
+                        <option value="" disabled selected>Select a car...</option>
+                        {% for car in all_cars %}
+                            <option value="{{ car[0] }}" {% if selected_car == car[0] %}selected{% endif %}>{{car[0]}}: {{car[1]}} ({{car[2]}})</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <div class="d-flex justify-content-center mb-2">
+                        <button type="reset" class="btn btn-secondary me-5">Clear</button>
+                        <button type="submit" class="btn btn-primary ms-5">Add</button>
+                    </div>
+                </div>
+            </div>
+            
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -64,7 +64,7 @@
                                         {% for dr in result %}
                                             <tr>
                                                 <td class="ml-auto text-center">{{ dr[0] }}</td>
-                                                <td class="ml-auto text-center"><a href="{{ url_for('driversrun', driver_id=dr[0]) }}">{{ dr[1] }} {{ dr[2] }}</a></td>
+                                                <td class="ml-auto text-center"><a href="{{ url_for('driversrun', driver_id=dr[0]) }}">{{ dr[1] }} {{ dr[2] }} {% if dr[4] and dr[4] <= 25 %}(J){% endif %}</a></td>
                                                 <td class="ml-auto text-center">{{ dr[3] if dr[3] is not none else '-' }}</td>
                                                 <td class="ml-auto text-center">{{ dr[4] if dr[4] is not none else '-' }}</td>
                                                 <td class="ml-auto text-center">

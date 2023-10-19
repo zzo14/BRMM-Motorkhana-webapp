@@ -20,7 +20,7 @@
             <tr>
                 <td class="text-center align-middle">{{ jd[0] }}</td> 
                 <td class="text-center align-middle">{{ jd[1] }}</td> 
-                <td class="text-center align-middle">{{ jd[2] }}</td> 
+                <td class="text-center align-middle">{{ jd[2].strftime('%d/%m/%Y') }}</td> 
                 <td class="text-center align-middle">{{ jd[3] }}</td>
                 <td class="text-center align-middle">{{ jd[4] if jd[4] is not none else '-' }}</td> 
             </tr>
