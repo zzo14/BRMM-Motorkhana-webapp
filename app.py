@@ -54,10 +54,10 @@ def driversrun():
 def allresult():
     connection = getCursor()
     connection.execute("""SELECT d.driver_id, CONCAT(d.first_name, ' ' , d.surname) as driver_name, d.age, d.model, 
-                          r.crs_id, IF(MIN(r.seconds), MIN(FORMAT(r.seconds+IFNULL(r.cones,0)*5+r.wd*10, 2)), 'dnf') AS best_time
+                          r.crs_id, IF(ISNULL(MIN(r.seconds+IFNULL(r.cones,0)*5+r.wd*10)), 'dnf', FORMAT(MIN(r.seconds+(IFNULL(r.cones,0))*5+r.wd*10), 2)) AS best_time
                           FROM (SELECT * FROM driver d JOIN car c ON d.car = c.car_num) d 
                           JOIN (SELECT * FROM run r JOIN course c ON r.crs_id = c.course_id) r 
-                          ON d.driver_id = r.dr_id GROUP BY d.driver_id, r.crs_id ORDER BY d.driver_id; """)
+                          ON d.driver_id = r.dr_id GROUP BY d.driver_id, r.crs_id ORDER BY d.driver_id, r.crs_id; """)
     allresult = connection.fetchall()
     print(allresult)
     sorted_drivers = mod_allresult(allresult)
