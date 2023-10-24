@@ -1,8 +1,8 @@
 # COMP636-BRMM-webapp
 ## Web Application Structure
-### 1. Routes & Functions
-  #### @app.route("/") in app.py
-  - Renders the ***base.html*** template, serving as the application's homepage.
+### Routes & Functions
+  1. **@app.route("/") in app.py**
+       - Renders the ***base.html*** template, serving as the application's homepage.
   #### @app.route("/listdrivers") in app.py:
   - Retrieves a list of all drivers from the database.
   - Passes the following data to the ***listdrivers.html*** template:
