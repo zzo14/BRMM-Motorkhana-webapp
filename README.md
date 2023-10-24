@@ -47,9 +47,9 @@
      - List of junior driver information
 
 9. **@app.route("/admin/junior_driver") in app.py**
-       - Retrieves a list of junior drivers (drivers aged 25 or younger) from the database.
-       - Passes the following data to the ***junior_driver.html*** template:
-         - List of junior driver information
+   - Retrieves a list of junior drivers (drivers aged 25 or younger) from the database.
+   - Passes the following data to the ***junior_driver.html*** template:
+     - List of junior driver information
 
 10. **@app.route("/admin/edit_run") in app.py**
        - Allows administrators to edit run information for drivers.
