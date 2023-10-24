@@ -1,6 +1,53 @@
 # COMP636-BRMM-webapp
 ## Web Application Structure
 ### Routes & Functions
+1. **@app.route("/") in app.py**
+   - Renders the ***base.html*** template, serving as the application's homepage.
+
+2. **@app.route("/listdrivers") in app.py**
+   - Retrieves a list of all drivers from the database.
+   - Passes the following data to the ***listdrivers.html*** template:
+     - List of drivers' information
+
+3. **@app.route("/driversrun") in app.py**
+   - Retrieves a list of all drivers from the database.
+   - Allows the user to select a driver from a dropdown.
+   - Passes the following data to the ***driversrun.html*** template:
+     - List of all drivers (for dropdown)
+     - Selected driver's information (if chosen)
+
+4. **@app.route("/allresult") in app.py**
+   - Retrieves a list of all drivers and their best run times from the database.
+   - Calculates the overall results for each driver using the *mod_allresult* function.
+   - Passes the following data to the ***allresult.html*** template:
+     - List of drivers and their overall results (processed by *mod_allresult*)
+
+5. **@app.route("/graph") in app.py**
+   - Retrieves driver and runs information from the database.
+   - Calculates the top 5 drivers based on their overall results using the *mod_allresult* function.
+   - Passes the following data to the ***top5graph.html*** template:
+     - Names of the top 5 drivers
+     - Their corresponding overall results (processed by *mod_allresult*)
+
+6. **@app.route("/listcourses") in app.py**
+   - Retrieves a list of all courses from the database.
+   - Passes the following data to the ***listcourses.html*** template:
+     - List of course information
+
+7. **@app.route("/admin") in app.py**
+   - Renders the ***admin.html*** template, serving as the admin interface's homepage.
+   - Allows administrators to search for drivers.
+   - Retrieves driver information based on search queries from the database.
+   - Passes the following data to the ***admin.html*** template:
+     - Search results (driver information)
+
+8. **@app.route("/admin/junior_driver") in app.py**
+   - Retrieves a list of junior drivers (drivers aged 25 or younger) from the database.
+   - Passes the following data to the ***junior_driver.html*** template:
+     - List of junior driver information
+
+
+-----------------------------------------------
 
 1. **@app.route("/") in app.py**
        - Renders the ***base.html*** template, serving as the application's homepage.
