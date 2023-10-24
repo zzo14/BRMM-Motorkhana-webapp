@@ -17,52 +17,52 @@
          - List of all drivers (for dropdown)
          - Selected driver's information (if chosen)
 
-4. **@app.route("/allresult") in app.py**
+5. **@app.route("/allresult") in app.py**
        - Retrieves a list of all drivers and their best run times from the database.
        - Calculates the overall results for each driver using the *mod_allresult* function.
        - Passes the following data to the ***allresult.html*** template:
          - List of drivers and their overall results (processed by *mod_allresult*)
 
-5. **@app.route("/graph") in app.py**
+6. **@app.route("/graph") in app.py**
        - Retrieves driver and runs information from the database.
        - Calculates the top 5 drivers based on their overall results using the *mod_allresult* function.
        - Passes the following data to the ***top5graph.html*** template:
          - Names of the top 5 drivers
          - Their corresponding overall results (processed by *mod_allresult*)
 
-6. **@app.route("/listcourses") in app.py**
+7. **@app.route("/listcourses") in app.py**
        - Retrieves a list of all courses from the database.
        - Passes the following data to the ***listcourses.html*** template:
          - List of course information
 
-7. **@app.route("/admin") in app.py**
+8. **@app.route("/admin") in app.py**
        - Renders the ***admin.html*** template, serving as the admin interface's homepage.
        - Allows administrators to search for drivers.
        - Retrieves driver information based on search queries from the database.
        - Passes the following data to the ***admin.html*** template:
          - Search results (driver information)
 
-8. **@app.route("/admin/junior_driver") in app.py**
+9. **@app.route("/admin/junior_driver") in app.py**
        - Retrieves a list of junior drivers (drivers aged 25 or younger) from the database.
        - Passes the following data to the ***junior_driver.html*** template:
          - List of junior driver information
 
-9. **@app.route("/admin/edit_run") in app.py**
+10. **@app.route("/admin/edit_run") in app.py**
        - Allows administrators to edit run information for drivers.
        - Retrieves and passes the following data to the ***edit_run.html*** template:
          - Driver and run information
          - Updated run information (if modified)
 
-10. **@app.route("/admin/add_driver") in app.py**
+11. **@app.route("/admin/add_driver") in app.py**
        - Renders the ***add_driver.html*** template, providing an option to choose between adding an adult or junior driver.
 
-11. **@app.route("/admin/add_adult") in app.py**
+12. **@app.route("/admin/add_adult") in app.py**
        - Allows administrators to add new adult drivers.
        - Retrieves car information from the database to populate a dropdown.
        - Passes the following data to the ***add_adult.html*** template:
          - List of cars (for dropdown)
 
-12. **@app.route("/admin/add_junior") in app.py**
+13. **@app.route("/admin/add_junior") in app.py**
        - Allows administrators to add new junior drivers.
        - Retrieves car and caregiver information from the database.
        - Passes the following data to the ***add_junior.html*** template:
