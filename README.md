@@ -63,4 +63,8 @@
 #### calculate_age(date_birth) in app.py:
 - Calculates the age of a driver based on their date of birth.
 - Returns the driver's age or None if the date of birth is not provided.
-
+## Assumptions and design decisions
+### Assumptions:
+- Desktop Focus: The website is designed primarily for desktop displays, and mobile platforms are not a priority.
+- Integration of Features: It's assumed that the admin search function links with other features, such as listing all drivers and editing runs, to provide a cohesive user experience.
+- Flash Messages for Feedback: Flash messages are used to provide real-time feedback to administrators regarding the success or failure of their actions, such as adding or editing driver information.
