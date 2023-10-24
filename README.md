@@ -15,15 +15,15 @@
     - Selected driver's information (if chosen)
   #### @app.route("/allresult") in app.py:
   - Retrieves a list of all drivers and their best run times from the database.
-  - Calculates the overall results for each driver.
+  - Calculates the overall results for each driver using the *mod_allresult* function.
   - Passes the following data to the ***allresult.html*** template:
-    - List of drivers and their overall results
+    - List of drivers and their overall results (processed by *mod_allresult*)
   #### @app.route("/graph") in app.py:
-  - Retrieves driver and run information from the database.
-  - Calculates the top 5 drivers based on their overall results.
+  - Retrieves driver and runs information from the database.
+  - Calculates the top 5 drivers based on their overall results using the *mod_allresult* function.
   - Passes the following data to the ***top5graph.html*** template:
     - Names of the top 5 drivers
-    - Their corresponding overall results
+    - Their corresponding overall results (processed by *mod_allresult*)
   #### @app.route("/listcourses") in app.py:
   - Retrieves a list of all courses from the database.
   - Passes the following data to the ***listcourses.html*** template:
@@ -56,4 +56,11 @@
   - Passes the following data to the add_junior.html template:
     - List of cars (for dropdown)
     - List of caregivers (for dropdown)
+### 2. Additional Functions:
+#### mod_allresult(allresult) in app.py:
+- Processes the driver and runs data to calculate overall results.
+- Returns a list of drivers with their overall results.
+#### calculate_age(date_birth) in app.py:
+- Calculates the age of a driver based on their date of birth.
+- Returns the driver's age or None if the date of birth is not provided.
 
