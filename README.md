@@ -71,7 +71,7 @@
 ### Design Decisions:
 #### Public Interface:
   1.	Design a Home Page for Introducing the Motorkhana Event:
-    - The home page serves as the gateway to the application, introducing users to the Motorkhana event. It provides an initial impression and context for the application's purpose.
+      - The home page serves as the gateway to the application, introducing users to the Motorkhana event. It provides an initial impression and context for the application's purpose.
   2.	Fixed Navigation Bar:
   - The decision to fix the navigation bar at the top of the page, even during scrolling, ensures that users have constant access to essential navigation options. This design choice enhances the user experience by offering quick and convenient access to various parts of the application.
   3.	Display Full Names in Separate Columns:
