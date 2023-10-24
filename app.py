@@ -58,10 +58,10 @@ def allresult():
                           FROM (SELECT * FROM driver d JOIN car c ON d.car = c.car_num) d 
                           JOIN (SELECT * FROM run r JOIN course c ON r.crs_id = c.course_id) r 
                           ON d.driver_id = r.dr_id GROUP BY d.driver_id, r.crs_id ORDER BY d.driver_id, r.crs_id; """)
-    allresult = connection.fetchall()
-    print(allresult)
-    sorted_drivers = mod_allresult(allresult)
-    return render_template("allresult.html", allresult=sorted_drivers)
+    all_result = connection.fetchall()
+    print(all_result)
+    sorted_drivers = mod_allresult(all_result)
+    return render_template("allresult.html", all_result=sorted_drivers)
 
 @app.route("/listdrivers")
 def listdrivers():
@@ -70,17 +70,17 @@ def listdrivers():
                           CONCAT(d2.first_name,' ',d2.surname) AS caregiver_name, d1.model, d1.drive_class 
                           FROM (SELECT * FROM driver d JOIN car c ON d.car = c.car_num) d1 LEFT JOIN driver d2 ON d1.caregiver = d2.driver_id 
                           ORDER BY d1.surname, d1.first_name;""")
-    driverList = connection.fetchall()
-    print(driverList)
+    driver_list = connection.fetchall()
+    print(driver_list)
     # formated_driverList = date_format_nz(driverList)
-    return render_template("driverlist.html", driver_list = driverList)    
+    return render_template("listdrivers.html", driver_list = driver_list)    
 
 @app.route("/listcourses")
 def listcourses():
     connection = getCursor()
     connection.execute("SELECT * FROM course;")
-    courseList = connection.fetchall()
-    return render_template("courselist.html", course_list = courseList)
+    course_list = connection.fetchall()
+    return render_template("listcourses.html", course_list = course_list)
 
 @app.route("/graph")
 def showgraph():
@@ -192,7 +192,7 @@ def admin():
     print(result)
     return render_template("admin.html", query=query,result=result)
 
-@app.route("/admin/junior_driver", methods=['GET', 'POST'])
+@app.route("/admin/junior_driver")
 def junior_driver():
     connection = getCursor()
     connection.execute("""SELECT d1.driver_id, CONCAT(d1.first_name,' ', d1.surname) AS driver_name, d1.date_of_birth, d1.age, 
