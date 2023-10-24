@@ -81,9 +81,9 @@
 
 ## Assumptions and design decisions
 ### Assumptions:
-- **Desktop Focus:** The website is designed primarily for desktop displays, and mobile platforms are not a priority.
-- **Integration of Features:** Assume the driver search feature is on the home page of the admin interface and linked to other features, such as listing all drivers and editing runs.
-- **Flash Messages for Feedback:** Flash messages are used to provide real-time feedback to administrators regarding the success or failure of their actions, such as adding or editing driver information.
+1. **Desktop Focus:** The website is designed primarily for desktop displays, and mobile platforms are not a priority.
+2. **Integration of Features:** Assume the driver search feature is on the home page of the admin interface and linked to other features, such as listing all drivers and editing runs.
+3. **Flash Messages for Feedback:** Flash messages are used to provide real-time feedback to administrators regarding the success or failure of their actions, such as adding or editing driver information.
 
 ### Design Decisions
 #### Public Interface
