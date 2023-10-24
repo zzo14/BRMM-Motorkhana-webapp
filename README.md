@@ -75,12 +75,12 @@
 
 ### Additional Functions
 1. **mod_allresult(allresult) in app.py**
-       - Processes the driver and runs data to calculate overall results.
-       - Returns a list of drivers with their overall results.
+   - Processes the driver and runs data to calculate overall results.
+   - Returns a list of drivers with their overall results.
 
 2. **calculate_age(date_birth) in app.py**
-       - Calculates the age of a driver based on their date of birth.
-       - Returns the driver's age or None if the date of birth is not provided.
+   - Calculates the age of a driver based on their date of birth.
+   - Returns the driver's age or None if the date of birth is not provided.
 
 
 ## Assumptions and design decisions
