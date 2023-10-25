@@ -100,7 +100,7 @@
 3. **Display Full Names in Separate Columns:**
      - Full names of drivers are consistently displayed in separate columns to optimise page space and improve the overall user experience. This design decision enhances readability and allows users to easily scan and compare driver information.
        
-4. **Indicating Junior Drivers with "(J)":**
+4. **Indicating Junior Drivers always with "(J)":**
      - To provide clear and immediate identification, the application consistently appends "(J)" to the names of junior drivers. This design choice ensures that users can easily distinguish between junior and adult drivers, improving user understanding.
        
 5. **Bootstrap Modals for Viewing Images:**
@@ -112,6 +112,9 @@
 7. **Using Bootstrap Container for Centered Page Display:**
      - By wrapping the application's content within a container, ensure that it is displayed in a visually pleasing and organised manner. This design decision contributes to better aesthetics and readability, making it easier for users to navigate and engage with the application's content. Centering the content also maintains a consistent and balanced layout, which is visually appealing and user-friendly.
 
+8. **Conditional Loading:**
+   - The use of {% if %} enables the dynamic loading of requested results based on user interaction. This approach ensures that results are fetched and displayed only when a user performs an action. It enhances resource efficiency and responsiveness by loading content as needed, providing a smoother user experience.
+
 #### Admin Interface
 1. **Driver Search Interface on Home Page:**
      - Placing the driver search interface on the home page of the admin interface streamlines the administrator's workflow. It allows administrators to quickly query driver information and quickly link to the target driver page to view or modify driver results on demand, contributing to a cohesive user experience.
@@ -121,20 +124,26 @@
        
 3. **Radio Button Group for Age Rank Selection on the add driver page:**
      - A radio button group is utilised to enable users to select the age rank of new drivers (over 25 or not). This design choice offers clear options and categorises drivers correctly, simplifying the data entry process.
+
+4. **Segregating Routes and Templates for adding Junior and Adult Drivers:**
+   - Dividing routes and templates for adding junior and adult drivers, can reduce system overhead. For instance, adult drivers do not need to enter a date of birth, so they do not need to load and process the corresponding data. This optimisation enhances the overall user experience by providing a more efficient and streamlined interface tailored to the specific needs of different driver categories.
        
-4. **Dropdown Selections with Dynamic Generation on the add driver page:**
+5. **Dropdown Selections with Dynamic Generation on the add driver page:**
      - Dropdown select inputs are implemented for caregiver and car selection, ensuring simplified user input. Dynamic generation of options based on available data enhances the user experience by reducing input errors and providing relevant choices.
        
-5. **Validation for Data Accuracy:**
+6. **Validation for Data Accuracy:**
      - Form validation is integrated to ensure data accuracy. This includes validating fields like date of birth using a date picker, times and cones cannot be negative, to confirm that users enter valid information.
        
-6. **Clear Buttons for Form Reset:**
+7. **Clear Buttons for Form Reset:**
      - Clear buttons are added to forms to facilitate user interactions by allowing quick and effortless resetting of form fields. This design choice enhances user convenience during data entry.
+
+8.  **Hidden Input Fields for Data Security and SQL Parameters on the edit driver page:**
+      - Hidden input fields are utilised in the code for safeguarding certain driver-related information that should not be modified by users. Simultaneously, these hidden fields serve as essential parameters for database SQL on the backend. This approach strikes a balance between data security and the necessity of using this data as query parameters for database operations.
        
-7. **Flash Messages for Immediate Feedback:**
+9. **Flash Messages for Immediate Feedback:**
      - Flash messages are implemented to provide immediate feedback to administrators during actions such as adding or editing driver information. This design decision enhances user-friendliness by offering clear and informative error messages when issues arise.
        
-8. **Method Selection for Data Transmission:**
+10. **Method Selection for Data Transmission:**
      - The application employs the POST method for form submissions, ensuring secure data transmission and alignment with actions that could alter the server's state. For data retrieval tasks, like fetching search results, the GET method is utilised. This approach optimally leverages GET's suitability for data retrieval without side effects and its visibility in URLs, while POST provides enhanced security for data submissions.
 
 ## Database questions
@@ -168,8 +177,8 @@ drive_class VARCHAR(3) NOT NULL DEFAULT 'RWD'
 **5.	Suppose logins were implemented. Why is it important for drivers and the club admin to access different routes?**
  - **Data Integrity and Security:** Not all users should have the ability to modify or delete data. By limiting the routes and features available to drivers, the club can prevent accidental or malicious changes to critical data.
  - **Role-based Responsibilities:** Different roles have different responsibilities. The club admin may need to access management tools, such as adding/deleting courses, updating run times, or managing drivers' information. Meanwhile, drivers might only need to view their stats, upcoming events, or personal data. By creating distinct routes, the application can cater to these specific needs.
- - **Privacy:** Some data should remain confidential. For instance, while an admin might have access to all drivers' personal details and performance stats, a driver should only see their own information. By segregating routes, you ensure that users only access data they're authorized to view.
- - **Minimizing Errors:** By restricting access to certain functionalities, the system minimizes the chance of users making mistakes. For example, a driver accidentally deletes or modifies their records.
+ - **Privacy:** Some data should remain confidential. For instance, while an admin might have access to all drivers' personal details and performance stats, a driver should only see their own information. By segregating routes, you ensure that users only access data they're authorised to view.
+ - **Minimising Errors:** By restricting access to certain functionalities, the system minimises the chance of users making mistakes. For example, a driver accidentally deletes or modifies their records.
    
  - **Example:**
     - (1) Drivers might unintentionally or maliciously manipulate essential data, such as driver details or run results. This could compromise the integrity of the event's data and results.
