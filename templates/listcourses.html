@@ -20,9 +20,10 @@
             <tr>
                 <td class="text-center align-middle">{{ course[0] }}</td> 
                 <td class="text-center align-middle">{{ course[1] }}</td> 
-                <td class="text-center align-middle">
+                <td class="text-center align-middle position-relative">
                     <!-- Trigger the modal with a button --> 
-                    <img src="/static/{{course[2]}}" alt="Map diagram for {{ course[1] }}" data-bs-toggle="modal" data-bs-target="#myModal{{ loop.index }}" class="img-thumbnail w-25">
+                    <a href="#" class="stretched-link btn btn-link btn-block" data-bs-toggle="modal" data-bs-target="#myModal{{ loop.index }}"></a>
+                    <img src="/static/{{course[2]}}" alt="Map diagram for {{ course[1] }}" class="img-thumbnail w-25">
                     
                     <!-- Modal to display a larger view of the map diagram -->
                     <div class="modal fade" id="myModal{{ loop.index }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
