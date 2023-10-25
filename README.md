@@ -160,3 +160,15 @@ drive_class VARCHAR(3) NOT NULL DEFAULT 'RWD'
  - **Example:**
     - (1) Drivers might unintentionally or maliciously manipulate essential data, such as driver details or run results. This could compromise the integrity of the event's data and results.
     - (2) If drivers and the club admin have access to all features, the user interface could become cluttered and complex. Drivers may find it challenging to locate the functions they need, leading to frustration and reduced efficiency.
+
+## Image sources
+American Muscle Whitianga. (n.d.). [american-muscle-whitianga-75-1681772520 used as background]. All About Whitianga. https://allaboutwhitianga.co.nz/community/clubs-groups/hobbies/car-clubs/american-muscle-whitianga
+
+Canterbury Car Club. (n.d.). [motorkhana1 saved as motorkhana1]. Canterbury Car Club. 
+https://www.canterburycarclub.co.nz/club-racing/motorkhana/
+
+Canterbury Car Club. (n.d.). [IMG_7780SMALL saved as motorkhana2]. Canterbury Car Club. 
+https://www.canterburycarclub.co.nz/club-racing/motorkhana/
+
+Canterbury Car Club. (n.d.). [clubsport-05 saved as motorkhana3]. Canterbury Car Club. 
+https://www.canterburycarclub.co.nz/club-racing/motorkhana/
