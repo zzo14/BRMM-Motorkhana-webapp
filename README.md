@@ -185,7 +185,8 @@ drive_class VARCHAR(3) NOT NULL DEFAULT 'RWD'
     - (2) If drivers and the club admin have access to all features, the user interface could become cluttered and complex. Drivers may find it challenging to locate the functions they need, leading to frustration and reduced efficiency.
 
 ## Image Sources
-- **American Muscle Whitianga. (n.d.).** [american-muscle-whitianga-75-1681772520 used as background]. All About Whitianga. [https://allaboutwhitianga.co.nz/community/clubs-groups/hobbies/car-clubs/american-muscle-whitianga](https://allaboutwhitianga.co.nz/community/clubs-groups/hobbies/car-clubs/american-muscle-whitianga)
+- **American Muscle Whitianga. (n.d.).** [american-muscle-whitianga-75-1681772520 used as background]. All About Whitianga.  
+[https://allaboutwhitianga.co.nz/community/clubs-groups/hobbies/car-clubs/american-muscle-whitianga](https://allaboutwhitianga.co.nz/community/clubs-groups/hobbies/car-clubs/american-muscle-whitianga)
 
 - **Canterbury Car Club. (n.d.).** [motorkhana1 saved as motorkhana1]. Canterbury Car Club.  
 [https://www.canterburycarclub.co.nz/club-racing/motorkhana/](https://www.canterburycarclub.co.nz/club-racing/motorkhana/)
