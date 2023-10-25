@@ -123,3 +123,40 @@
      - Flash messages are implemented to provide immediate feedback to administrators during actions such as adding or editing driver information. This design decision enhances user-friendliness by offering clear and informative error messages when issues arise.
 8. **Method Selection for Data Transmission:**
      - The application employs the POST method for form submissions, ensuring secure data transmission and alignment with actions that could alter the server's state. For data retrieval tasks, like fetching search results, the GET method is utilised. This approach optimally leverages GET's suitability for data retrieval without side effects and its visibility in URLs, while POST provides enhanced security for data submissions.
+
+## Database questions
+**1.	What SQL statement creates the car table and defines its three fields/columns?**
+```
+CREATE TABLE IF NOT EXISTS car
+(
+car_num INT PRIMARY KEY NOT NULL,
+model VARCHAR(20) NOT NULL,
+drive_class VARCHAR(3) NOT NULL
+);
+```
+
+**2.	Which line of SQL code sets up the relationship between the car and driver tables?**
+```
+FOREIGN KEY (car) REFERENCES car(car_num) ON UPDATE CASCADE ON DELETE CASCADE
+```
+
+**3.	Which 3 lines of SQL code insert the Mini and GR Yaris details into the car table?**
+```
+INSERT INTO car VALUES
+(11,'Mini','FWD'),
+(17,'GR Yaris','4WD'),
+```
+
+**4.	Suppose the club wanted to set a default value of ‘RWD’ for the driver_class field. What specific change would you need to make to the SQL to do this?**
+```
+drive_class VARCHAR(3) NOT NULL DEFAULT 'RWD'
+```
+
+**5.	Suppose logins were implemented. Why is it important for drivers and the club admin to access different routes?**
+ - **Data Integrity and Security:** Not all users should have the ability to modify or delete data. By limiting the routes and features available to drivers, the club can prevent accidental or malicious changes to critical data.
+ - **Role-based Responsibilities:** Different roles have different responsibilities. The club admin may need to access management tools, such as adding/deleting courses, updating run times, or managing drivers' information. Meanwhile, drivers might only need to view their stats, upcoming events, or personal data. By creating distinct routes, the application can cater to these specific needs.
+ - **Privacy:** Some data should remain confidential. For instance, while an admin might have access to all drivers' personal details and performance stats, a driver should only see their own information. By segregating routes, you ensure that users only access data they're authorized to view.
+ - **Minimizing Errors:** By restricting access to certain functionalities, the system minimizes the chance of users making mistakes. For example, a driver accidentally deletes or modifies their records.
+ - **Example:**
+    - (1) Drivers might unintentionally or maliciously manipulate essential data, such as driver details or run results. This could compromise the integrity of the event's data and results.
+    - (2) If drivers and the club admin have access to all features, the user interface could become cluttered and complex. Drivers may find it challenging to locate the functions they need, leading to frustration and reduced efficiency.
