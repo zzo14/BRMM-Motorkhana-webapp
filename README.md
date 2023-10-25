@@ -184,6 +184,6 @@ drive_class VARCHAR(3) NOT NULL DEFAULT 'RWD'
 - **Canterbury Car Club. (n.d.).** [IMG_7780SMALL saved as motorkhana2]. Canterbury Car Club.  
 [https://www.canterburycarclub.co.nz/club-racing/motorkhana/](https://www.canterburycarclub.co.nz/club-racing/motorkhana/)
 
-- **Canterbury Car Club. (n.d.).** [clubsport-05 saved as motorkhana3]. Canterbury Car Club.   
+- **Canterbury Car Club. (n.d.).** [clubsport-05 saved as motorkhana3]. Canterbury Car Club.  
 [https://www.canterburycarclub.co.nz/club-racing/motorkhana/](https://www.canterburycarclub.co.nz/club-racing/motorkhana/)
 
