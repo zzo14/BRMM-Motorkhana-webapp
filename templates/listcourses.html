@@ -21,10 +21,10 @@
                 <td class="text-center align-middle">{{ course[0] }}</td> 
                 <td class="text-center align-middle">{{ course[1] }}</td> 
                 <td class="text-center align-middle">
-                    <!-- Trigger the modal with a button -->
+                    <!-- Trigger the modal with a button --> 
                     <img src="/static/{{course[2]}}" alt="Map diagram for {{ course[1] }}" data-bs-toggle="modal" data-bs-target="#myModal{{ loop.index }}" class="img-thumbnail w-25">
                     
-                    <!-- Modal -->
+                    <!-- Modal to display a larger view of the map diagram -->
                     <div class="modal fade" id="myModal{{ loop.index }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered modal-xl my-auto">
                             <div class="modal-content">
@@ -32,6 +32,7 @@
                                     <h5 class="modal-title">Map diagram for {{ course[1] }}</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
+                                 <!-- Larger view of the map diagram -->
                                 <div class="modal-body">
                                     <img src="/static/{{course[2]}}" alt="Map diagram for {{ course[1] }}" class="img-fluid">
                                 </div>

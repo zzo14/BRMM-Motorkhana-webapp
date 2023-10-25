@@ -33,11 +33,13 @@ def home():
 
 @app.route("/driversrun")
 def driversrun():
+    """Fetch and display driver run data based on selected driver."""
     connection = getCursor()
-    # Get all driver names for the dropdown
+    # Fetching all driver names for the dropdown
     connection.execute("SELECT DISTINCT d.driver_id, CONCAT(d.first_name, ' ' , d.surname) as driver_name, d.age FROM driver d;")
     all_drivers = connection.fetchall()
 
+    # Fetching selected driver's data
     selected_driver_id = request.args.get('driver_id', None)
     selected_driver = []
     if selected_driver_id:
@@ -52,6 +54,7 @@ def driversrun():
 
 @app.route("/allresult")
 def allresult():
+    """Fetch and display the result of all drivers across all courses."""
     connection = getCursor()
     connection.execute("""SELECT d.driver_id, CONCAT(d.first_name, ' ' , d.surname) as driver_name, d.age, d.model, 
                           r.crs_id, IF(ISNULL(MIN(r.seconds+IFNULL(r.cones,0)*5+r.wd*10)), 'dnf', FORMAT(MIN(r.seconds+(IFNULL(r.cones,0))*5+r.wd*10), 2)) AS best_time
@@ -65,6 +68,7 @@ def allresult():
 
 @app.route("/listdrivers")
 def listdrivers():
+    """Fetch and display a list of all drivers with details."""
     connection = getCursor()
     connection.execute("""SELECT d1.driver_id, d1.first_name, d1.surname, d1.date_of_birth, d1.age, 
                           CONCAT(d2.first_name,' ',d2.surname) AS caregiver_name, d1.model, d1.drive_class 
@@ -72,11 +76,11 @@ def listdrivers():
                           ORDER BY d1.surname, d1.first_name;""")
     driver_list = connection.fetchall()
     print(driver_list)
-    # formated_driverList = date_format_nz(driverList)
     return render_template("listdrivers.html", driver_list = driver_list)    
 
 @app.route("/listcourses")
 def listcourses():
+    """Fetch and display a list of all courses."""
     connection = getCursor()
     connection.execute("SELECT * FROM course;")
     course_list = connection.fetchall()
@@ -84,6 +88,7 @@ def listcourses():
 
 @app.route("/graph")
 def showgraph():
+    """Fetch and display a graph of the top 5 drivers overall."""
     connection = getCursor()
     # Insert code to get top 5 drivers overall, ordered by their final results.
     # Use that to construct 2 lists: bestDriverList containing the names, resultsList containing the final result values
@@ -102,6 +107,7 @@ def showgraph():
     return render_template("top5graph.html", name_list = bestDriverList, value_list = resultsList)
 
 def mod_allresult(allresult):
+    """Process and sort driver run data for display."""
     drivers = {}  # Dictionary to hold calculated data
     for row in allresult:
         driver_id = row[0]
@@ -145,27 +151,15 @@ def mod_allresult(allresult):
     print(sorted_drivers)
     return sorted_drivers
 
-# def date_format_nz(driverList):
-#     formated_driverList = []
-#     for driver in driverList:
-#         #type(datetime.date)
-#         if driver[3]:
-#             formated_date = driver[3].strftime("%d-%m-%Y")
-#             formated_driver = driver[:3] + (formated_date,) + driver[4:]
-#             formated_driverList.append(formated_driver)
-#         else:
-#             formated_driverList.append(driver)
-#     print(formated_driverList)
-#     return formated_driverList
-
-
 
 # Adminisrator Interface
 @app.route("/admin", methods=['GET', 'POST'])
 def admin():
+    """Handle searches for drivers and display results."""
     connection = getCursor()
     result = []
     query = []
+    # Handling POST request for new adult driver
     if request.method == "POST":
         query = request.form.get("query")
         print(query)
@@ -194,6 +188,7 @@ def admin():
 
 @app.route("/admin/junior_driver")
 def junior_driver():
+    """Fetch all junior drivers (age <= 25) details"""
     connection = getCursor()
     connection.execute("""SELECT d1.driver_id, CONCAT(d1.first_name,' ', d1.surname) AS driver_name, d1.date_of_birth, d1.age, 
                           CONCAT(d2.first_name,' ',d2.surname) AS caregiver_name
@@ -205,8 +200,11 @@ def junior_driver():
 
 @app.route("/admin/edit_run", methods=['GET', 'POST'])
 def edit_run():
+    """Handle the editing of run data for drivers."""
     connection = getCursor()
+    # If the request method is POST, update the driver's run data in the database
     if request.method == "POST":
+        # Retrieve form data
         driver_id = request.form.get("driver_id")
         driver_name = request.form.get("driver_name")
         course_id = request.form.get("course_id")
@@ -220,12 +218,14 @@ def edit_run():
                               (times if times else None, cones if cones else None, wd, driver_id,course_id,run_num,))
         # Check the number of affected rows
         affected_rows = connection.rowcount
+        # Provide feedback based on the result of the update
         if affected_rows > 0:
             flash("Successfully updated runs data of {}-{} at Course {} run {}.".format(driver_id, driver_name, course_id, run_num), "success")
         else:
             flash("No rows were updated. Please check your enter and edit again.", "danger")
         return redirect(url_for('edit_run'))
-
+    
+    # Retrieve and display existing run data for editing
     connection.execute("""SELECT d.driver_id, CONCAT(d.first_name, ' ' , d.surname) as driver_name, r.crs_id, r.run_num, 
                           r.seconds, r.cones, r.wd, d.age
                           FROM driver d 
@@ -240,6 +240,7 @@ def edit_run():
 
 @app.route("/admin/add_adult", methods=['GET', 'POST'])
 def add_adult():
+    """Handle the addition of new adult drivers to the database."""
     connection = getCursor()
     # Get all driver names for the dropdown
     connection.execute("SELECT * FROM car;")
@@ -247,6 +248,7 @@ def add_adult():
     selected_car = request.args.get('car')
 
     if request.method == "POST":
+        # Retrieve form data
         first_name = request.form.get("first_name")
         last_name = request.form.get("last_name")
         car = request.form.get("car")
@@ -256,12 +258,15 @@ def add_adult():
                               VALUES(%s, %s, %s, %s, %s, %s)""", 
                               (first_name, last_name, None, None, None, car))
         new_id = connection.lastrowid
+        # Check the number of affected rows
         affected_rows = connection.rowcount
+        # Add 12 blank runs for each course with null times and cones.
         if new_id and affected_rows > 0:
             for course in ['A', 'B', 'C', 'D', 'E', 'F']:
                 for run_num in [1, 2]:
                     connection.execute("""INSERT INTO run (dr_id, crs_id, run_num, seconds, cones, wd) 
                                           VALUES (%s, %s, %s, NULL, NULL, 0)""", (new_id, course, run_num))
+            # Provide feedback based on the result of the update
             flash("Successfully add a new driver, driver id is {}!".format(new_id), "success")
             return redirect(url_for('add_driver'))
         else:
@@ -272,6 +277,7 @@ def add_adult():
 
 @app.route("/admin/add_junior", methods=['GET', 'POST'])
 def add_junior():
+    """Handle the addition of new junior drivers to the database."""
     connection = getCursor()
     # Get all driver names for the dropdown
     connection.execute("SELECT * FROM car;")
@@ -283,6 +289,7 @@ def add_junior():
     selected_caregiver = request.args.get('caregiver')
 
     if request.method == "POST":
+        # Retrieve form data
         first_name = request.form.get("first_name")
         last_name = request.form.get("last_name")
         date_birth = request.form.get("date_birth")
@@ -299,12 +306,15 @@ def add_junior():
                               VALUES(%s, %s, %s, %s, %s, %s)""", 
                               (first_name, last_name, date_birth if date_birth != "" else None, age, caregiver, car))
         new_id = connection.lastrowid
+        # Check the number of affected rows
         affected_rows = connection.rowcount
+        # Add 12 blank runs for each course with null times and cones.
         if new_id and affected_rows > 0:
             for course in ['A', 'B', 'C', 'D', 'E', 'F']:
                 for run_num in [1, 2]:
                     connection.execute("""INSERT INTO run (dr_id, crs_id, run_num, seconds, cones, wd) 
                                           VALUES (%s, %s, %s, NULL, NULL, 0)""", (new_id, course, run_num))
+            # Provide feedback based on the result of the update
             flash("Successfully add a new driver, driver id is {}!".format(new_id), "success")
             return redirect(url_for('add_driver'))
         else:
@@ -317,18 +327,17 @@ def add_junior():
 
 @app.route("/admin/add_driver", methods=['GET', 'POST'])
 def add_driver():
-    
+    """Handle the choice between adding an adult or junior driver, then redirect to the page."""
     if request.method == "POST":
         age_choose = request.form.get("age_rank")
         if age_choose == "adult":
-            # return render_template("add_adult.html", age_choose = age_choose)
             return redirect(url_for('add_adult'))
         elif age_choose == "junior":
-            # return render_template("add_junior.html", age_choose = age_choose)
             return redirect(url_for('add_junior'))
     return render_template("add_driver.html")
 
 def calculate_age(date_birth):
+    """Calculate and return the age based on date of birth."""
     if date_birth:
         birth_date = datetime.strptime(date_birth, "%Y-%m-%d")
         today = datetime.today()

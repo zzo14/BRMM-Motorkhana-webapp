@@ -5,6 +5,7 @@
 <div class="container mt-4">
     {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
+        <!-- Form for adding a new driver with POST method -->
         {% for category, message in messages %}
             <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
                 {{ message }}
@@ -29,6 +30,7 @@
             </div>
             
             <div class="row mt-3">
+                <!-- Input field for date of birth and dropdown for selecting caregiver -->
                 <div class="col-md-6">
                     <label for="date_birth" class="form-label mb-2">Date of birth (Driver must be over 12 years old!)</label>
                     <input type="date" class="form-control mb-4" id="date_birth" name="date_birth" value="" max="{{max_time}}" required>
@@ -37,6 +39,7 @@
                     <label for="caregiver" class="form-label mb-2">Caregiver (Please choose one if you're under 16!):</label>
                     <select class="form-control mb-4" id="caregiver" name="caregiver">
                         <option value="" disabled selected>Select a caregiver...</option>
+                        <!-- Looping through and displaying all available caregivers -->
                         {% for driver in all_drivers %}
                             <option value="{{ driver[0] }}" {% if selected_caregiver == driver[0] %}selected{% endif %}>{{driver[1]}} {{driver[2]}}</option>
                         {% endfor %}
@@ -49,6 +52,7 @@
                     <label for="car" class="form-label mb-2">Please choose your racing car:</label>
                     <select class="form-control mb-2" id="car" name="car" required>
                         <option value="" disabled selected>Select a car...</option>
+                        <!-- Looping through and displaying all available cars -->
                         {% for car in all_cars %}
                             <option value="{{ car[0] }}" {% if selected_car == car[0] %}selected{% endif %}>{{car[0]}}: {{car[1]}} ({{car[2]}})</option>
                         {% endfor %}

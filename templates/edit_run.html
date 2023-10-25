@@ -4,6 +4,7 @@
 <div class="container mt-4">
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
+            <!-- Loops through and displays flashed messages, if any -->
             {% for category, message in messages %}
                 <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
                     {{ message }}
@@ -37,7 +38,8 @@
             <tbody>
                 {% for driver in drivers_list %}
                     {% if driver_id %}
-                        {% if driver[0]|string == driver_id %}
+                        <!-- when driver_id is provided -->
+                        {% if driver[0]|string == driver_id %} <!-- Checking if the driver_id matches the current driver in the loop -->
                             <tr data-bs-toggle="modal" data-bs-target="#myModal{{ loop.index }}">
                                 <td class="text-center">{{ driver[0] }}</td>
                                 <td class="text-center">{{ driver[1] }} {% if driver[7] and driver[7] <= 25 %}(J){% endif %}</td>
@@ -47,7 +49,7 @@
                                 <td class="text-center">{{ driver[5] if driver[5] is not none else 0 }}</td>
                                 <td class="text-center">{{ driver[6] }}</td>
 
-                                <!-- Modal -->
+                                <!-- Modal for editing run data -->
                                 <div class="modal fade" id="myModal{{ loop.index }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered modal-xl">
                                         <div class="modal-content">
@@ -90,6 +92,7 @@
                             </tr>
                         {% endif %}
                     {% else %}
+                     <!-- when driver_id is not provided, show all drivers -->
                         <tr data-bs-toggle="modal" data-bs-target="#myModal{{ loop.index }}">
                             <td class="text-center">{{ driver[0] }}</td>
                             <td class="text-center">{{ driver[1] }} {% if driver[7] and driver[7] <= 25 %}(J){% endif %}</td>

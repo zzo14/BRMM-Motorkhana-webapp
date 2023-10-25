@@ -8,10 +8,13 @@
     </head>
 
     <body>
+      <!-- Background image for the page -->
       <img src="/static/background.jpg" alt="Background Image" class="position-fixed w-100 h-100" style="z-index: -1; object-fit: cover;">
+      <!-- Navbar for navigation -->
       <nav class="navbar navbar-expand-lg navbar-light bg-success fixed-top">
         <a class="navbar-brand text-white font-weight-bold ms-3" href="{{ url_for('home') }}">BRMM</a>
         <ul class="navbar-nav me-auto"> 
+          <!-- Highlighting the current section -->
             <li class="nav-item">
                 <a class="nav-link text-white {{ 'font-weight-bold display-4 text-decoration-underline' if request.path == url_for('listdrivers') else '' }}" href="{{ url_for('listdrivers') }}">List Drivers</a> 
             </li>
