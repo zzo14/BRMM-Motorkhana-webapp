@@ -138,7 +138,7 @@
      - Clear buttons are added to forms to facilitate user interactions by allowing quick and effortless resetting of form fields. This design choice enhances user convenience during data entry.
 
 8.  **Hidden Input Fields for Data Security and SQL Parameters on the edit driver page:**
-   - Hidden input fields are utilised in the code for safeguarding certain driver-related information that should not be modified by users. Simultaneously, these hidden fields serve as essential parameters for database SQL on the backend. This approach strikes a balance between data security and the necessity of using this data as query parameters for database operations.
+      - Hidden input fields are utilised in the code for safeguarding certain driver-related information that should not be modified by users. Simultaneously, these hidden fields serve as essential parameters for database SQL on the backend. This approach strikes a balance between data security and the necessity of using this data as query parameters for database operations.
        
 9. **Flash Messages for Immediate Feedback:**
      - Flash messages are implemented to provide immediate feedback to administrators during actions such as adding or editing driver information. This design decision enhances user-friendliness by offering clear and informative error messages when issues arise.
