@@ -30,7 +30,7 @@
                 <th class="ml-auto text-center">Run Number</th>
                 <th class="ml-auto text-center">Seconds</th>
                 <th class="ml-auto text-center">Cones</th>
-                <th class="ml-auto text-center">WD</th>
+                <th class="ml-auto text-center">Direction</th>
                 <th class="ml-auto text-center">Total Time</th>
             </tr>
         </thead>
@@ -45,12 +45,15 @@
                     </td>
                     <td class="ml-auto text-center">{{ dr[5] }}</td>
                     <td class="ml-auto text-center">{{ dr[6] if dr[6] is not none else '-' }}</td>
-                    <td class="ml-auto text-center">{{ dr[7] if dr[7] is not none else 0 }}</td>
-                    <td class="ml-auto text-center">{{ dr[8] }}</td>
+                    <td class="ml-auto text-center">{{ '-' if dr[6] is none else dr[7] if dr[7] is not none else 0 }}</td>
+                    <td class="ml-auto text-center">{{ '-' if dr[6] is none else 'WD' if dr[8] == 1 else 'RD'}}<sup>{{ '' if dr[6] is none else '*'}}</sup></td>
                     <td class="ml-auto text-center">{{ dr[9] if dr[9] is not none else '-' }}</td>
                 </tr>
             {% endfor %}
         </tbody>
+        <tfoot>
+            * WD = Wrong Direction; RD = Right Direction
+        </tfoot>
     </table>
     {% endif %}
 </div>

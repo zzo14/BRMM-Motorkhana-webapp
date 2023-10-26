@@ -17,6 +17,8 @@ app.secret_key = 'key'
 dbconn = None
 connection = None
 
+COURSES = ['A', 'B', 'C', 'D', 'E', 'F']
+
 def getCursor():
     global dbconn
     global connection
@@ -30,6 +32,18 @@ def getCursor():
 @app.route("/")
 def home():
     return render_template("base.html")
+
+@app.route("/listdrivers")
+def listdrivers():
+    """Fetch and display a list of all drivers with details."""
+    connection = getCursor()
+    connection.execute("""SELECT d1.driver_id, d1.first_name, d1.surname, d1.date_of_birth, d1.age, 
+                          CONCAT(d2.first_name,' ',d2.surname) AS caregiver_name, d1.model, d1.drive_class 
+                          FROM (SELECT * FROM driver d JOIN car c ON d.car = c.car_num) d1 LEFT JOIN driver d2 ON d1.caregiver = d2.driver_id 
+                          ORDER BY d1.surname, d1.first_name;""")
+    driver_list = connection.fetchall()
+    print(driver_list)
+    return render_template("listdrivers.html", driver_list = driver_list)    
 
 @app.route("/driversrun")
 def driversrun():
@@ -66,26 +80,6 @@ def allresult():
     sorted_drivers = mod_allresult(all_result)
     return render_template("allresult.html", all_result=sorted_drivers)
 
-@app.route("/listdrivers")
-def listdrivers():
-    """Fetch and display a list of all drivers with details."""
-    connection = getCursor()
-    connection.execute("""SELECT d1.driver_id, d1.first_name, d1.surname, d1.date_of_birth, d1.age, 
-                          CONCAT(d2.first_name,' ',d2.surname) AS caregiver_name, d1.model, d1.drive_class 
-                          FROM (SELECT * FROM driver d JOIN car c ON d.car = c.car_num) d1 LEFT JOIN driver d2 ON d1.caregiver = d2.driver_id 
-                          ORDER BY d1.surname, d1.first_name;""")
-    driver_list = connection.fetchall()
-    print(driver_list)
-    return render_template("listdrivers.html", driver_list = driver_list)    
-
-@app.route("/listcourses")
-def listcourses():
-    """Fetch and display a list of all courses."""
-    connection = getCursor()
-    connection.execute("SELECT * FROM course;")
-    course_list = connection.fetchall()
-    return render_template("listcourses.html", course_list = course_list)
-
 @app.route("/graph")
 def showgraph():
     """Fetch and display a graph of the top 5 drivers overall."""
@@ -105,6 +99,14 @@ def showgraph():
     print(bestDriverList)
     print(resultsList)
     return render_template("top5graph.html", name_list = bestDriverList, value_list = resultsList)
+
+@app.route("/listcourses")
+def listcourses():
+    """Fetch and display a list of all courses."""
+    connection = getCursor()
+    connection.execute("SELECT * FROM course;")
+    course_list = connection.fetchall()
+    return render_template("listcourses.html", course_list = course_list)
 
 def mod_allresult(allresult):
     """Process and sort driver run data for display."""
@@ -161,7 +163,7 @@ def admin():
     query = []
     # Handling POST request for new adult driver
     if request.method == "POST":
-        query = request.form.get("query")
+        query = request.form.get("query", "").strip()
         print(query)
         connection.execute("""SELECT * FROM driver WHERE first_name LIKE %s or surname LIKE %s;""", 
                            (f"%{query}%" if query else None,f"%{query}%" if query else None,))
@@ -179,10 +181,8 @@ def admin():
         session['result'] = modified_result
         session['query'] = query
         return redirect(url_for('admin'))
-    result = session.get('result')
-    query = session.get('query')  # Retrieve the query from the session
-    session['result'] = None
-    session['query'] = None  # Clear the query from the session after retrieving it
+    result = session.pop('result', None)
+    query = session.pop('query', None)  # Retrieve the data from the session and clear after retrieving it
     print(result)
     return render_template("admin.html", query=query,result=result)
 
@@ -209,13 +209,13 @@ def edit_run():
         driver_name = request.form.get("driver_name")
         course_id = request.form.get("course_id")
         run_num = request.form.get("run_num")
-        times = request.form.get("times")
-        cones = request.form.get("cones")
+        times = request.form.get("times") if request.form.get("times") else None
+        cones = request.form.get("cones") if request.form.get("cones") else None
         wd = request.form.get("wd")
         connection.execute("""UPDATE run
                               SET seconds = %s, cones = %s, wd = %s
                               WHERE dr_id=%s AND crs_id=%s AND run_num=%s;""", 
-                              (times if times else None, cones if cones else None, wd, driver_id,course_id,run_num,))
+                              (times, cones, wd, driver_id,course_id,run_num,))
         # Check the number of affected rows
         affected_rows = connection.rowcount
         # Provide feedback based on the result of the update
@@ -249,8 +249,8 @@ def add_adult():
 
     if request.method == "POST":
         # Retrieve form data
-        first_name = request.form.get("first_name")
-        last_name = request.form.get("last_name")
+        first_name = request.form.get("first_name").strip()
+        last_name = request.form.get("last_name").strip()
         car = request.form.get("car")
         print(first_name, last_name, car)
 
@@ -262,12 +262,12 @@ def add_adult():
         affected_rows = connection.rowcount
         # Add 12 blank runs for each course with null times and cones.
         if new_id and affected_rows > 0:
-            for course in ['A', 'B', 'C', 'D', 'E', 'F']:
+            for course in COURSES:
                 for run_num in [1, 2]:
                     connection.execute("""INSERT INTO run (dr_id, crs_id, run_num, seconds, cones, wd) 
                                           VALUES (%s, %s, %s, NULL, NULL, 0)""", (new_id, course, run_num))
             # Provide feedback based on the result of the update
-            flash("Successfully add a new driver, driver id is {}!".format(new_id), "success")
+            flash("Successfully add a new adult driver, <a href='/listdrivers'>driver id is {}!</a>".format(new_id), "success")
             return redirect(url_for('add_driver'))
         else:
             flash("No rows were added. Please check your enter and add again.", "danger")
@@ -310,12 +310,12 @@ def add_junior():
         affected_rows = connection.rowcount
         # Add 12 blank runs for each course with null times and cones.
         if new_id and affected_rows > 0:
-            for course in ['A', 'B', 'C', 'D', 'E', 'F']:
+            for course in COURSES:
                 for run_num in [1, 2]:
                     connection.execute("""INSERT INTO run (dr_id, crs_id, run_num, seconds, cones, wd) 
                                           VALUES (%s, %s, %s, NULL, NULL, 0)""", (new_id, course, run_num))
             # Provide feedback based on the result of the update
-            flash("Successfully add a new driver, driver id is {}!".format(new_id), "success")
+            flash("Successfully add a new junior driver, <a href='/listdrivers'>driver id is {}!</a>".format(new_id), "success")
             return redirect(url_for('add_driver'))
         else:
             flash("No rows were added. Please check your enter and add again.", "danger")
