@@ -86,7 +86,7 @@
 1. **Desktop Focus:** The website is designed primarily for desktop displays, and mobile platforms are not a priority.
 2. **Integration of Features:** Assume the driver search feature is on the home page of the admin interface and linked to other features, such as listing all drivers and editing runs.
 3. **Flash Messages for Feedback:** Flash messages are used to provide real-time feedback to administrators regarding the success or failure of their actions, such as adding or editing driver information.
-4. **Limited Access:** Only drivers who have participated in the current season are granted permission to view driver interface. 
+4. **Limited Access:** Only drivers who have participated in the current season are granted permission to view the driver interface. 
 
 ### Design Decisions
 #### Public Interface
@@ -112,7 +112,7 @@
      - By wrapping the application's content within a container, ensure that it is displayed in a visually pleasing and organised manner. This design decision contributes to better aesthetics and readability, making it easier for users to navigate and engage with the application's content. Centering the content also maintains a consistent and balanced layout, which is visually appealing and user-friendly.
 
 8. **Conditional Loading:**
-   - The use of {% if %} enables the dynamic loading of requested results based on user interaction. This approach ensures that results are fetched and displayed only when a user performs an action. It enhances resource efficiency and responsiveness by loading content as needed, providing a smoother user experience.
+   - The use of {% if %} enables the dynamic loading of requested results based on user interaction. This approach ensures that results are fetched and displayed only when a user acts. It enhances resource efficiency and responsiveness by loading content as needed, providing a smoother user experience.
 
 #### Admin Interface
 1. **Driver Search Interface on Home Page:**
