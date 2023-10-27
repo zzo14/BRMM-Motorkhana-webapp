@@ -142,7 +142,7 @@
        
 9. **Flash Messages for Immediate Feedback with Clickable Links:**
      - Flash messages are implemented to provide immediate feedback to administrators during actions such as adding or editing driver information. This design decision enhances user-friendliness by offering clear and informative error messages when issues arise.
-     - To further improve the user experience, flash messages incorporate clickable links that enable administrators to quickly navigate to relevant pages. For example, after successfully adding a new driver, a flash message include a link to the driver list interface, allowing administrators to promptly access the updated information with a single click. This feature streamlines user interactions and ensures a seamless workflow for administrators.
+     - To further improve the user experience, flash messages incorporate clickable links that enable administrators to quickly navigate to relevant pages. For example, after successfully adding a new driver, a flash message includes a link to the driver list interface, allowing administrators to promptly access the updated information with a single click. This feature streamlines user interactions and ensures a seamless workflow for administrators.
        
 10. **Method Selection for Data Transmission:**
      - The application employs the POST method for form submissions, ensuring secure data transmission and alignment with actions that could alter the server's state. For data retrieval tasks, like fetching search results, the GET method is utilised. This approach optimally leverages GET's suitability for data retrieval without side effects and its visibility in URLs, while POST provides enhanced security for data submissions.
