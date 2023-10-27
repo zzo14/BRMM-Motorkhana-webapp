@@ -89,7 +89,7 @@
 4. **Limited Access:** Only drivers who have participated in the current season are granted permission to view the driver interface. 
 
 ### Design Decisions
-#### Public Interface
+#### Driver Interface
 1. **Design a Home Page for Introducing the Motorkhana Event:**
      - The home page serves as the gateway to the application, introducing users to the Motorkhana event. It provides an initial impression and context for the application's purpose.
        
@@ -172,7 +172,7 @@ INSERT INTO car VALUES
 
 **4.	Suppose the club wanted to set a default value of ‘RWD’ for the driver_class field. What specific change would you need to make to the SQL to do this?**
 ```
-drive_class VARCHAR(3) NOT NULL DEFAULT 'RWD'
+driver_class VARCHAR(3) NOT NULL DEFAULT 'RWD'
 ```
 
 **5.	Suppose logins were implemented. Why is it important for drivers and the club admin to access different routes?**
