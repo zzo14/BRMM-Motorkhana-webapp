@@ -5,50 +5,50 @@
    - Renders the ***base.html*** template, acting as the application's homepage.
 
 2. **@app.route("/listdrivers"), Function: listdrivers()**
-   - Retrieves a list of all drivers from the database.
+   - Fetches a list of all drivers from the database.
    - Passes the following data to the ***listdrivers.html*** template:
      - List of drivers' information
 
 3. **@app.route("/driversrun"), Function: driversrun()**
-   - Retrieves a list of all drivers from the database.
+   - Fetches a list of all drivers from the database.
    - Allows the user to select a driver from a dropdown.
    - Passes the following data to the ***driversrun.html*** template:
      - List of all drivers (for dropdown)
      - Selected driver's information (if chosen)
 
 4. **@app.route("/allresult"), Function: allresult()**
-   - Retrieves a list of all drivers and their best run times from the database.
+   - Fetches a list of all drivers and their best run times from the database.
    - Calculates the overall results for each driver using the ***mod_allresult()*** function.
    - Passes the following data to the ***allresult.html*** template:
      - List of drivers and their overall results (processed by ***mod_allresult()***)
 
 5. **@app.route("/graph"), Function: showgraph()**
-   - Retrieves driver and runs information from the database.
+   - Fetches driver and runs information from the database.
    - Calculates the top 5 drivers based on their overall results using the ***mod_allresult()*** function.
    - Passes the following data to the ***top5graph.html*** template:
      - Names of the top 5 drivers
      - Their corresponding overall results (processed by ***mod_allresult()***)
 
 6. **@app.route("/listcourses"), Function: listcourses()**
-   - Retrieves a list of all courses from the database.
+   - Fetches a list of all courses from the database.
    - Passes the following data to the ***listcourses.html*** template:
      - List of course information
 
 7. **@app.route("/admin"), Function: admin()**
    - Renders the ***admin.html*** template, serving as the admin interface's homepage.
    - Allows administrators to search for drivers.
-   - Retrieves driver information based on search queries from the database.
+   - Fetches driver information based on search queries from the database.
    - Passes the following data to the ***admin.html*** template:
      - Search results (driver information)
 
 8. **@app.route("/admin/junior_driver"), Function: junior_driver()**
-    - Retrieves a list of junior drivers (drivers aged 25 or younger) from the database.
+    - Fetches a list of junior drivers (drivers aged 25 or younger) from the database.
    - Passes the following data to the ***junior_driver.html*** template:
      - List of junior driver information
 
 9. **@app.route("/admin/edit_run"), Function: edit_run()**
       - Allows administrators to edit run information for drivers.
-      - Retrieves and passes the following data to the ***edit_run.html*** template:
+      - Fetches and passes the following data to the ***edit_run.html*** template:
         - Driver and run information
         - If modified, updated run info is sent back to the server
 
@@ -58,14 +58,14 @@
 
 11. **@app.route("/admin/add_adult"), Function: add_adult()**
        - Allows administrators to add new adult drivers.
-       - Retrieves car information from the database to populate a dropdown.
+       - Fetches car information from the database to populate a dropdown.
        - Passes the following data to the ***add_adult.html*** template:
          - List of cars (for dropdown)
        - Redirects back to the "/admin/add_driver" after successful adding.
 
 12. **@app.route("/admin/add_junior"), Function: add_junior()**
        - Allows administrators to add new junior drivers.
-       - Retrieves car and caregiver information from the database.
+       - Fetches car and caregiver information from the database.
        - Passes the following data to the ***add_junior.html*** template:
          - List of cars (for dropdown)
          - List of caregivers (for dropdown)
