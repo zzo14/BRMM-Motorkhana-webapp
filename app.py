@@ -182,7 +182,7 @@ def admin():
         session['query'] = query
         return redirect(url_for('admin'))
     result = session.pop('result', None)
-    query = session.pop('query', None)  # Retrieve the data from the session and clear after retrieving it
+    query = session.pop('query', None)  # Retrieve the data from the session and clear
     print(result)
     return render_template("admin.html", query=query,result=result)
 
@@ -204,7 +204,7 @@ def edit_run():
     connection = getCursor()
     # If the request method is POST, update the driver's run data in the database
     if request.method == "POST":
-        # Retrieve form data
+        # Fetch data form template
         driver_id = request.form.get("driver_id")
         driver_name = request.form.get("driver_name")
         course_id = request.form.get("course_id")
@@ -225,7 +225,7 @@ def edit_run():
             flash("No rows were updated. Please check your enter and edit again.", "danger")
         return redirect(url_for('edit_run'))
     
-    # Retrieve and display existing run data for editing
+    # Fetch and display existing run data for editing
     connection.execute("""SELECT d.driver_id, CONCAT(d.first_name, ' ' , d.surname) as driver_name, r.crs_id, r.run_num, 
                           r.seconds, r.cones, r.wd, d.age
                           FROM driver d 
@@ -248,7 +248,7 @@ def add_adult():
     selected_car = request.args.get('car')
 
     if request.method == "POST":
-        # Retrieve form data
+        # Fetch data form template
         first_name = request.form.get("first_name").strip()
         last_name = request.form.get("last_name").strip()
         car = request.form.get("car")
@@ -289,7 +289,7 @@ def add_junior():
     selected_caregiver = request.args.get('caregiver')
 
     if request.method == "POST":
-        # Retrieve form data
+        # Fetch data form template
         first_name = request.form.get("first_name")
         last_name = request.form.get("last_name")
         date_birth = request.form.get("date_birth")
