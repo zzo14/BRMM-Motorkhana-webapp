@@ -2,7 +2,7 @@
 ## Web Application Structure
 ### Routes & Functions
 1. **@app.route("/"), Function: home()**
-   - Renders the ***base.html*** template, serving as the application's homepage.
+   - Renders the ***base.html*** template, acting as the application's homepage.
 
 2. **@app.route("/listdrivers"), Function: listdrivers()**
    - Retrieves a list of all drivers from the database.
@@ -91,7 +91,7 @@
 ### Design Decisions
 #### Driver Interface
 1. **Design a Home Page for Introducing the Motorkhana Event:**
-     - The home page serves as the gateway to the application, introducing users to the Motorkhana event. It provides an initial impression and context for the application's purpose.
+     - The home page acts as the gateway to the application, introducing users to the Motorkhana event. It provides an initial impression and context for the application's purpose.
        
 2. **Fixed Navigation Bar:**
      - The decision to fix the navigation bar at the top of the page, even during scrolling, ensures that users have constant access to essential navigation options. This design choice enhances the user experience by offering quick and convenient access to various parts of the application.
@@ -116,7 +116,7 @@
 
 #### Admin Interface
 1. **Driver Search Interface on Home Page:**
-     - Placing the driver search interface on the home page of the admin interface streamlines the administrator's workflow. It allows administrators to quickly query driver information and quickly link to the target driver page to view or modify driver results on demand, contributing to a cohesive user experience.
+     - Positioning the driver search interface on the admin interface's home page streamlines the administrator's workflow. It allows administrators to quickly query driver information and quickly link to the target driver page to view or edit driver results on demand, contributing to a cohesive user experience.
        
 2. **Modal for Editing Runs:**
      - The use of modals for editing run data offers a convenient and space-efficient method for administrators to update run information. Modals provide a seamless user experience by allowing data editing without the need to navigate to separate pages.
@@ -145,7 +145,7 @@
      - To further improve the user experience, flash messages incorporate clickable links that enable administrators to quickly navigate to relevant pages. For example, after successfully adding a new driver, a flash message includes a link to the driver list interface, allowing administrators to promptly access the updated information with a single click. This feature streamlines user interactions and ensures a seamless workflow for administrators.
        
 10. **Method Selection for Data Transmission:**
-     - The application employs the POST method for form submissions, ensuring secure data transmission and alignment with actions that could alter the server's state. For data retrieval tasks, like fetching search results, the GET method is utilised. This approach optimally leverages GET's suitability for data retrieval without side effects and its visibility in URLs, while POST provides enhanced security for data submissions.
+     - The application employs the POST method for form submissions, ensuring secure data transmission and alignment with actions that might alter the server's state. For data retrieval tasks, like fetching search results, the GET method is utilised. This approach optimally leverages GET's suitability for data retrieval without side effects and its visibility in URLs, while POST provides enhanced security for data submissions.
 
 ## Database questions
 **1.	What SQL statement creates the car table and defines its three fields/columns?**
