@@ -134,10 +134,10 @@
      - Dropdown select inputs are implemented for caregiver and car selection, ensuring simplified user input. Dynamic generation of options based on available data enhances the user experience by reducing input errors and providing relevant choices.
        
 6. **Form input and Validation for Data Accuracy:**
-Form validation is seamlessly integrated to ensure the accuracy of data entered by users. This comprehensive validation includes the following aspects:
-     - **Date of Birth Validation:** The application validates the date of birth input using a date picker. Users are required to provide a valid date of birth. Additionally, a maximum date constraint is set to ensure that new junior drivers must be at least 12 years old. For example, the date is limited to 12 years ago from the current date.
-     - **Numeric Input Validation:** Numeric fields, such as 'times' and 'cones,' are subject to validation to confirm that users enter numerical values. Furthermore, the application ensures that these numeric values cannot be negative.
-     - **Mandatory Fields:** The "required" attribute is strategically applied to essential form fields, making them mandatory for users to complete. This approach enhances data accuracy and completeness by ensuring that critical information is provided by users.
+     - Form validation is seamlessly integrated to ensure the accuracy of data entered by users. This comprehensive validation includes the following aspects:
+       - **Date of Birth Validation:** The application validates the date of birth input using a date picker. Users are required to provide a valid date of birth. Additionally, a maximum date constraint is set to ensure that new junior drivers must be at least 12 years old. For example, the date is limited to 12 years ago from the current date.
+       - **Numeric Input Validation:** Numeric fields, such as 'times' and 'cones,' are subject to validation to confirm that users enter numerical values. Furthermore, the application ensures that these numeric values cannot be negative.
+       - **Mandatory Fields:** The "required" attribute is strategically applied to essential form fields, making them mandatory for users to complete. This approach enhances data accuracy and completeness by ensuring that critical information is provided by users.
      
 7. **Clear Buttons for Form Reset:**
      - Clear buttons are added to forms to facilitate user interactions by allowing quick and effortless resetting of form fields. This design choice enhances user convenience during data entry.
