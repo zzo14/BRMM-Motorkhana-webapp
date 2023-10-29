@@ -118,7 +118,7 @@
    - The use of {% if %} enables the dynamic loading of requested results based on user interaction. This approach ensures that results are fetched and displayed only when a user acts. It enhances resource efficiency and responsiveness by loading content as needed, providing a smoother user experience.
 
 10. **Formatting Dates for Local Display:**
-   - Date values retrieved from the database are thoughtfully formatted for local display, adhering to the New Zealand date format (day/month/year). This formatting choice ensures that local users can readily understand and work with the displayed date information, enhancing the overall user experience.
+    - Date values retrieved from the database are thoughtfully formatted for local display, adhering to the New Zealand date format (day/month/year). This formatting choice ensures that local users can readily understand and work with the displayed date information, enhancing the overall user experience.
 
 #### Admin Interface
 1. **Driver Search Interface on Home Page:**
