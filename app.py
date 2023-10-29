@@ -221,13 +221,13 @@ def edit_run():
         driver_name = request.form.get("driver_name")
         course_id = request.form.get("course_id")
         run_num = request.form.get("run_num")
-        times = round(float(request.form.get("times") if request.form.get("times") != '0' else None), 2)
+        times = round(float(request.form.get("times")), 2) if request.form.get("times") != '0' else None
         cones = request.form.get("cones") if request.form.get("cones") != '0' else None
         wd = request.form.get("wd")
         if times == None:
             if cones != None:
                 flash("Runs data of {}-{} at Course {} run {} doesn't have Time data. No updates were made. Please check your enter and edit again.".format(driver_id, driver_name, course_id, run_num), "danger")
-            return redirect(url_for('edit_run'))
+                return redirect(url_for('edit_run'))
 
         connection.execute("""UPDATE run
                               SET seconds = %s, cones = %s, wd = %s
