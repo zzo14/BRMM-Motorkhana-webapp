@@ -44,7 +44,7 @@
                         </div>
                     </td>
                     <td class="ml-auto text-center">{{ dr[5] }}</td>
-                    <td class="ml-auto text-center">{{ dr[6] if dr[6] is not none else '-' }}</td>
+                    <td class="ml-auto text-center">{{ '{:.2f}'.format(dr[6]) if dr[6] is not none else '-' }}</td>
                     <td class="ml-auto text-center">{{ '-' if dr[6] is none else dr[7] if dr[7] is not none else 0 }}</td>
                     <td class="ml-auto text-center">{{ '-' if dr[6] is none else 'WD' if dr[8] == 1 else 'RD'}}<sup>{{ '' if dr[6] is none else '*'}}</sup></td>
                     <td class="ml-auto text-center">{{ dr[9] if dr[9] is not none else '-' }}</td>

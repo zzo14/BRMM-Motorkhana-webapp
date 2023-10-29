@@ -64,6 +64,7 @@ def driversrun():
                               JOIN (SELECT * FROM run r JOIN course c ON r.crs_id = c.course_id) r 
                               ON d.driver_id = r.dr_id WHERE d.driver_id = %s ORDER BY r.crs_id, r.run_num;""", (selected_driver_id,))
         selected_driver = connection.fetchall()
+        print(selected_driver)
     return render_template("driversrun.html", all_drivers=all_drivers, selected_driver=selected_driver, selected_driver_id=selected_driver_id)
 
 @app.route("/allresult")
@@ -249,6 +250,7 @@ def edit_run():
                           JOIN (SELECT * FROM run r JOIN course c ON r.crs_id = c.course_id) r 
                           ON d.driver_id = r.dr_id ORDER BY d.driver_id, r.crs_id, run_num;""")
     drivers_list = connection.fetchall()
+    print(drivers_list)
     driver = request.args.get('driver')
     driver_id, driver_name = None, None
     if driver:

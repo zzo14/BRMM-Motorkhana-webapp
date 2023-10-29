@@ -98,7 +98,7 @@
                             <td class="text-center">{{ driver[1] }} {% if driver[7] and driver[7] <= 25 %}(J){% endif %}</td>
                             <td class="text-center">{{ driver[2] }}</td>
                             <td class="text-center">{{ driver[3] }}</td>
-                            <td class="text-center">{{ driver[4] }}</td>
+                            <td class="text-center">{{ '{:.2f}'.format(driver[4]) if driver[4] != None else 'None' }}</td>
                             <td class="text-center">{{ driver[5] if driver[5] is not none else 0 }}</td>
                             <td class="text-center">{{ driver[6] }}</td>
 
