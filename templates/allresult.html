@@ -24,19 +24,22 @@
             <!-- Looping through all results and displaying each driver's information and results -->
             {% for driver in all_result %}
                 <tr>
-                    <td class="text-center">{{ driver.id  }}</td>
+                    <td class="text-center">{{ driver.id }}</td>
                     <!-- Driver name is a link to another page showing the driver's runs -->
                     <td class="text-left"><a href="{{ url_for('driversrun', driver_id=driver.id) }}">{{ driver.name }}</a></td>
                     <td class="text-center">{{ driver.car_model }}</td>
                     <!-- Displaying results for each course dynamically -->
                     {% for course in ('A','B','C','D','E','F') %}
-                        <td class="text-center">{{ driver.courses[course] }}</td>
+                        <td class="text-center">{{ driver.courses[course] }} <sup>{{ '' if driver.courses[course] != 'dnf' else '*'}}</sup></td>
                     {% endfor %}
-                    <td class="text-center">{{ driver.overall_result }}</td>
+                    <td class="text-center">{{ driver.overall_result }} <sup>{{ '' if driver.overall_result != 'NQ' else '*'}}</sup></td>
                     <td class="text-center">{{ driver.award if driver.award else '-'}}</td>
                 </tr>
             {% endfor %}
         </tbody>
+        <tfoot>
+            * 'dnf' is 'did not finish'; 'NQ' id 'Not Qualified'
+        </tfoot>
     </table>
 </div>
 

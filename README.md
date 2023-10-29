@@ -101,17 +101,20 @@
        
 4. **Indicating Junior Drivers always with "(J)":**
      - To provide clear and immediate identification, the application consistently appends "(J)" to the names of junior drivers. This design choice ensures that users can easily distinguish between junior and adult drivers, improving user understanding.
+
+5. **Displaying Driver Direction Information:**
+     - The application displays 'WD' when the 'WD' value in database is 1, indicating Wrong Direction, and 'RD' when the value is 0, indicating Right Direction.  When there is no 'seconds' data available, it displays '-' to signify the absence of information. To clarify the meaning of 'WD' and 'RD' for users, a table foot annotation is added: '* WD = Wrong Direction; RD = Right Direction'. This ensures that users can easily interpret the displayed information, enhancing the overall user experience.
        
-5. **Bootstrap Modals for Viewing Images:**
+6. **Bootstrap Modals for Viewing Images:**
      - Bootstrap modals were employed on the courselist page to implement a user-friendly feature that allows users to click on images to view them in a larger format. This design decision enhances the user experience by providing an interactive and space-efficient way to examine course images without navigating to separate pages.
        
-6. **Using .table-hover for Table Rows:**
+7. **Using .table-hover for Table Rows:**
      - The table-hover feature creates a user-friendly interaction by highlighting table rows when users hover their mouse over them. This provides a visual cue for interactive elements within the table, making it easier for users to identify and engage with data.
        
-7. **Using Bootstrap Container for Centered Page Display:**
+8. **Using Bootstrap Container for Centered Page Display:**
      - By wrapping the application's content within a container, ensure that it is displayed in a visually pleasing and organised manner. This design decision contributes to better aesthetics and readability, making it easier for users to navigate and engage with the application's content. Centering the content also maintains a consistent and balanced layout, which is visually appealing and user-friendly.
 
-8. **Conditional Loading:**
+9. **Conditional Loading:**
    - The use of {% if %} enables the dynamic loading of requested results based on user interaction. This approach ensures that results are fetched and displayed only when a user acts. It enhances resource efficiency and responsiveness by loading content as needed, providing a smoother user experience.
 
 #### Admin Interface
@@ -131,8 +134,10 @@
      - Dropdown select inputs are implemented for caregiver and car selection, ensuring simplified user input. Dynamic generation of options based on available data enhances the user experience by reducing input errors and providing relevant choices.
        
 6. **Form input and Validation for Data Accuracy:**
-     - Form validation is integrated to ensure data accuracy. This includes validating fields like date of birth using a date picker, times and cones must be number and cannot be negative, to confirm that users enter valid information.
-     - The "required" attribute is strategically applied to essential form fields, making them mandatory for users to fill out. This ensures that critical information is provided, enhancing data accuracy and completeness.
+Form validation is seamlessly integrated to ensure the accuracy of data entered by users. This comprehensive validation includes the following aspects:
+     - **Date of Birth Validation:** The application validates the date of birth input using a date picker. Users are required to provide a valid date of birth. Additionally, a maximum date constraint is set to ensure that new junior drivers must be at least 12 years old. For example, the date is limited to 12 years ago from the current date.
+     - **Numeric Input Validation:** Numeric fields, such as 'times' and 'cones,' are subject to validation to confirm that users enter numerical values. Furthermore, the application ensures that these numeric values cannot be negative.
+     - **Mandatory Fields:** The "required" attribute is strategically applied to essential form fields, making them mandatory for users to complete. This approach enhances data accuracy and completeness by ensuring that critical information is provided by users.
      
 7. **Clear Buttons for Form Reset:**
      - Clear buttons are added to forms to facilitate user interactions by allowing quick and effortless resetting of form fields. This design choice enhances user convenience during data entry.

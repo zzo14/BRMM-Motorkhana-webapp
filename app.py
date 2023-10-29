@@ -164,11 +164,23 @@ def admin():
     # Handling POST request for new adult driver
     if request.method == "POST":
         query = request.form.get("query", "").strip()
-        print(query)
-        connection.execute("""SELECT * FROM driver WHERE first_name LIKE %s or surname LIKE %s;""", 
-                           (f"%{query}%" if query else None,f"%{query}%" if query else None,))
-        result = connection.fetchall()
-        print(result)
+        name_list = query.split()
+        if len(name_list) == 2:
+            first_name, last_name = name_list[0], name_list[1]
+            connection.execute("""SELECT * FROM driver WHERE first_name LIKE %s and surname LIKE %s;""", 
+                           (f"%{first_name}%" if query else None,f"%{last_name}%" if query else None,))
+            result = connection.fetchall()
+            print(result)
+        elif len(name_list) == 1:
+            first_name, last_name= name_list[0], name_list[0]
+            connection.execute("""SELECT * FROM driver WHERE first_name LIKE %s or surname LIKE %s;""", 
+                           (f"%{first_name}%" if query else None,f"%{last_name}%" if query else None,))
+            result = connection.fetchall()
+            print(result)
+        else:
+            first_name, last_name = None, None
+            return redirect(url_for('admin'))
+        print(first_name, last_name)
 
         modified_result = []
         for item in result:
@@ -209,9 +221,14 @@ def edit_run():
         driver_name = request.form.get("driver_name")
         course_id = request.form.get("course_id")
         run_num = request.form.get("run_num")
-        times = request.form.get("times") if request.form.get("times") else None
-        cones = request.form.get("cones") if request.form.get("cones") else None
+        times = round(float(request.form.get("times") if request.form.get("times") != '0' else None), 2)
+        cones = request.form.get("cones") if request.form.get("cones") != '0' else None
         wd = request.form.get("wd")
+        if times == None:
+            if cones != None:
+                flash("Runs data of {}-{} at Course {} run {} doesn't have Time data. No updates were made. Please check your enter and edit again.".format(driver_id, driver_name, course_id, run_num), "danger")
+            return redirect(url_for('edit_run'))
+
         connection.execute("""UPDATE run
                               SET seconds = %s, cones = %s, wd = %s
                               WHERE dr_id=%s AND crs_id=%s AND run_num=%s;""", 
@@ -300,6 +317,9 @@ def add_junior():
         age = calculate_age(date_birth)
         if 12 <= age <= 16 and caregiver is None:
             flash("As driver is under 16 years old, a caregiver is required!", "danger")
+            return redirect(url_for('add_junior'))
+        if age > 25:
+            flash("As driver is over 25 years old, Please go to <a href='/admin/add_adult'>add adult page</a>!", "danger")
             return redirect(url_for('add_junior'))
 
         connection.execute("""INSERT INTO driver (first_name, surname, date_of_birth, age, caregiver, car)
