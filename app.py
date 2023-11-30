@@ -132,7 +132,15 @@ def mod_allresult(allresult):
 
         # If not dnf, add time to total
         if best_time != 'dnf':
-            drivers[driver_id]["total_time"] += float(best_time)
+            # Remove commas from the best_time string
+            best_time_without_comma = best_time.replace(',', '')
+            
+            try:
+                # Convert the modified string to float
+                time_float = float(best_time_without_comma)
+                drivers[driver_id]["total_time"] += time_float
+            except ValueError:
+                print(f"Error: Could not convert {best_time} to float.")
 
     # Check if driver is qualified
     for driver_id, data in drivers.items():
