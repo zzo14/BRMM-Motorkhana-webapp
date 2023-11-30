@@ -33,7 +33,7 @@
                 <!-- Input field for date of birth and dropdown for selecting caregiver -->
                 <div class="col-md-6">
                     <label for="date_birth" class="form-label mb-2">Date of birth (Driver must be over 12 years old!)</label>
-                    <input type="date" class="form-control mb-4" id="date_birth" name="date_birth" value="" max="{{max_time}}" required>
+                    <input type="date" class="form-control mb-4" id="date_birth" name="date_birth" value="" max="{{max_time}}" min="{{min_time}}" required>
                 </div>
                 <div class="col-md-6">
                     <label for="caregiver" class="form-label mb-2">Caregiver (Please choose one if you're under 16!):</label>

@@ -224,7 +224,7 @@ def edit_run():
         run_num = request.form.get("run_num")
         times = round(float(request.form.get("times")), 2) if request.form.get("times") != '0' else None
         cones = request.form.get("cones") if request.form.get("cones") != '0' else None
-        wd = request.form.get("wd")
+        wd = request.form.get("wd") if request.form.get("wd") != None else '0'
         if times == None:
             if cones != None:
                 flash("Runs data of {}-{} at Course {} run {} doesn't have Time data. No updates were made. Please check your enter and edit again.".format(driver_id, driver_name, course_id, run_num), "danger")
@@ -320,9 +320,6 @@ def add_junior():
         if 12 <= age <= 16 and caregiver is None:
             flash("As driver is under 16 years old, a caregiver is required!", "danger")
             return redirect(url_for('add_junior'))
-        if age > 25:
-            flash("As driver is over 25 years old, Please go to <a href='/admin/add_adult'>add adult page</a>!", "danger")
-            return redirect(url_for('add_junior'))
 
         connection.execute("""INSERT INTO driver (first_name, surname, date_of_birth, age, caregiver, car)
                               VALUES(%s, %s, %s, %s, %s, %s)""", 
@@ -344,8 +341,9 @@ def add_junior():
             return redirect(url_for('add_junior'))
     
     max_time = (datetime.today() - timedelta(days=12*365)).strftime('%Y-%m-%d')
+    min_time = (datetime.today() - timedelta(days=25*365)).strftime('%Y-%m-%d')
     return render_template("add_junior.html", all_cars=all_cars, selected_car=selected_car, 
-                           all_drivers=all_drivers,selected_caregiver=selected_caregiver, max_time=max_time)
+                           all_drivers=all_drivers,selected_caregiver=selected_caregiver, max_time=max_time, min_time=min_time)
 
 @app.route("/admin/add_driver", methods=['GET', 'POST'])
 def add_driver():
