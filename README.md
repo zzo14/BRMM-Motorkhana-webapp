@@ -1,4 +1,16 @@
-# COMP636-BRMM-webapp
+# Motorkhana Web Application Project
+## Introduction
+Welcome to the GitHub repository for our COMP636 project, a web application designed for managing Motorkhana events organized by the BRMM car club.  This application aims to streamline the management of drivers, cars, courses, and run results, enhancing the event experience through efficient data handling and intuitive user interfaces.
+
+## Key Features:
+Driver and Car Management: Seamlessly manage driver entries and associate them with specific cars.
+Course and Run Handling: Efficiently organize courses and track driver run details.
+Result Calculation: Automated calculation of best run times and overall results, including penalties.
+Junior Driver Support: Special attention to junior drivers, ensuring proper age and caregiver record management.
+
+## Live Demo
+Check out our live application here: [Motorkhana Web App](https://patrickzou.pythonanywhere.com/)
+
 ## Web Application Structure
 ### Routes & Functions
 1. **@app.route("/"), Function: home()**
