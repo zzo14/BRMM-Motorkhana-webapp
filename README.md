@@ -127,7 +127,7 @@ Check out our live application here: [Motorkhana Web App](https://patrickzou.pyt
      - By wrapping the application's content within a container, ensure that it is displayed in a visually pleasing and organised manner. This design decision contributes to better aesthetics and readability, making it easier for users to navigate and engage with the application's content. Centering the content also maintains a consistent and balanced layout, which is visually appealing and user-friendly.
 
 9. **Conditional Loading:**
-   - The use of {% if %} enables the dynamic loading of requested results based on user interaction. This approach ensures that results are fetched and displayed only when a user acts. It enhances resource efficiency and responsiveness by loading content as needed, providing a smoother user experience.
+   - The use of "if" enables the dynamic loading of requested results based on user interaction. This approach ensures that results are fetched and displayed only when a user acts. It enhances resource efficiency and responsiveness by loading content as needed, providing a smoother user experience.
 
 10. **Formatting Dates for Local Display:**
     - Date values retrieved from the database are thoughtfully formatted for local display, adhering to the New Zealand date format (day/month/year). This formatting choice ensures that local users can readily understand and work with the displayed date information, enhancing the overall user experience.
