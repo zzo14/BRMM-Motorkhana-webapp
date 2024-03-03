@@ -9,7 +9,7 @@ Welcome to the GitHub repository for our COMP636 project, a web application desi
  + **Junior Driver Support**: Special attention to junior drivers, ensuring proper age and caregiver record management.
 
 ## Live Demo
-Check out our live application here: [Motorkhana Web App](https://patrickzou.pythonanywhere.com/)
+Check out our live application here: [Motorkhana Web App](https://patzou.pythonanywhere.com/)
 
 ## Web Application Structure
 ### Routes & Functions
